@@ -175,6 +175,8 @@ def template_filler(template_list):
     template_tag = template_tuple[2]
     premise_tree_template = template_tuple[3]
     hypothesis_tree_template = template_tuple[4]
+    low_quality_expl_template = template_tuple[5] # for lex_prep_templates only (non-entailment)
+    high_quality_expl_template = template_tuple[6] # for lex_prep_templates only (non-entailment)
 
     premise_list = []
     index_dict = {}
@@ -205,6 +207,9 @@ def template_filler(template_list):
             index_dict[index] = word
 
     hypothesis_list = [index_dict[ind] for ind in hypothesis_template]
+
+    low_expl_list = [index_dict[elt] if type(elt)==int else elt for elt in low_quality_expl_template]
+    high_expl_list = [index_dict[elt] if type(elt)==int else elt for elt in high_quality_expl_template]
 
     premise_tree_list = []
     hypothesis_tree_list = []
@@ -273,8 +278,9 @@ def template_filler(template_list):
     premise_tree = "".join(premise_tree_list)
     hypothesis_tree = "".join(hypothesis_tree_list)
 
-
-    return postprocess(" ".join(premise_list)), postprocess(" ".join(hypothesis_list)), template_tag, premise_tree, hypothesis_tree, binarize_tree(premise_tree), binarize_tree(hypothesis_tree)
+    return postprocess(" ".join(premise_list)), postprocess(" ".join(hypothesis_list)), \
+           template_tag, premise_tree, hypothesis_tree, binarize_tree(premise_tree), binarize_tree(hypothesis_tree), \
+           postprocess(" ".join(low_expl_list)), postprocess(" ".join(high_expl_list))
 
 def postprocess(sentence):
 
@@ -347,12 +353,12 @@ lex_simple_templates = [(1.0, ([(0,"the"), (1,nouns), (2,transitive_verbs), (3,"
 
 # Lexical Overlap: Preposition on subject
 lex_prep_templates = [
-        (1.0/6, ([(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,transitive_verbs), (6,"the"), (7,nouns), (8,".")], [3,4,5,0,1,8],"temp2", ["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1,")) ","ppp,2,4",") (VP (VBD ",5,") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 5, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"])), 
-        (1.0/6,([(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,transitive_verbs), (6,"the"), (7,nouns), (8,".")], [6,7,5,0,1,8],"temp3", ["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1,")) ","ppp,2,4",") (VP (VBD ",5,") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,7"," ", 7,")) (VP (VBD ", 5, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"])), 
-        (1.0/6,([(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,transitive_verbs), (6,"the"), (7,nouns), (8,".")], [6,7,5,3,4,8],"temp4",["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1,")) ","ppp,2,4",") (VP (VBD ",5,") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,7"," ", 7,")) (VP (VBD ", 5, ") (NP (DT the) (","nn,4"," ",4,"))) (. .)))"])), 
-        (1.0/6, ([(0, "the"), (1, nouns), (2, transitive_verbs), (3, "the"), (4,nouns), (5,preps), (6, "the"), (7, nouns), (8, ".")], [3,4,2,0,1,8],"temp5", ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) ","ppp,5,7",")) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"])), 
-        (1.0/6, ([(0, "the"), (1, nouns), (2, transitive_verbs), (3, "the"), (4,nouns), (5,preps), (6, "the"), (7, nouns), (8, ".")], [3,4,2,6,7,8],"temp6", ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) ","ppp,5,7",")) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"])), 
-        (1.0/6, ([(0, "the"), (1, nouns), (2, transitive_verbs), (3, "the"), (4,nouns), (5,preps), (6, "the"), (7, nouns), (8, ".")], [6,7,2,0,1,8],"temp7", ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) ","ppp,5,7",")) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,7"," ", 7,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"]))
+        (1.0/6, ([(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,transitive_verbs), (6,"the"), (7,nouns), (8,".")], [3,4,5,0,1,8],"temp2", ["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1,")) ","ppp,2,4",") (VP (VBD ",5,") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 5, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0,1,5,6,7,8], [0,1,2,3,4, "does not imply", 3,4,5,0,1,8])), 
+        (1.0/6,([(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,transitive_verbs), (6,"the"), (7,nouns), (8,".")], [6,7,5,0,1,8],"temp3", ["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1,")) ","ppp,2,4",") (VP (VBD ",5,") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,7"," ", 7,")) (VP (VBD ", 5, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0,1,5,6,7,8], [0,1,5,7,4, "does not imply", 3,7,5,0,1,8])), 
+        (1.0/6,([(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,transitive_verbs), (6,"the"), (7,nouns), (8,".")], [6,7,5,3,4,8],"temp4",["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1,")) ","ppp,2,4",") (VP (VBD ",5,") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,7"," ", 7,")) (VP (VBD ", 5, ") (NP (DT the) (","nn,4"," ",4,"))) (. .)))"], [0,1,5,6,7,8], ['Just because', 0,1,2,3,4,5,6,7, "does not mean", 6,7,5,3,4,8])),
+        (1.0/6, ([(0, "the"), (1, nouns), (2, transitive_verbs), (3, "the"), (4,nouns), (5,preps), (6, "the"), (7, nouns), (8, ".")], [3,4,2,0,1,8],"temp5", ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) ","ppp,5,7",")) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0,1,2,3,4,8], [0,1,2,3,4, "is not the same as", 3,4,2,0,1,8])), 
+        (1.0/6, ([(0, "the"), (1, nouns), (2, transitive_verbs), (3, "the"), (4,nouns), (5,preps), (6, "the"), (7, nouns), (8, ".")], [3,4,2,6,7,8],"temp6", ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) ","ppp,5,7",")) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,7"," ",7,"))) (. .)))"], [0,1,"is not", 3,4, "and", 3,4,"is not",6,7, 8], [3,4,5,6,7,"does not imply", 3,4,2,6,7,8])), 
+        (1.0/6, ([(0, "the"), (1, nouns), (2, transitive_verbs), (3, "the"), (4,nouns), (5,preps), (6, "the"), (7, nouns), (8, ".")], [6,7,2,0,1,8],"temp7", ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) ","ppp,5,7",")) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,7"," ", 7,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0,1,"is not", 6,7, "and", 3,4,"is not",0,1, 8], [0,1,2,3,4,5,6,7,"does not imply", 6,7,2,0,1,8]))
         ]
 
 # Lexical Overlap: Relative clause on subject
