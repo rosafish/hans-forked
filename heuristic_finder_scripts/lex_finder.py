@@ -1,6 +1,6 @@
 
-
-fi = open("multinli_1.0_train.txt", "r")
+f = open("esnli_train_lex.txt", "a")
+fi = open("esnli_train.txt", "r")
 
 count_entailment = 0
 count_neutral = 0
@@ -42,13 +42,13 @@ for line in fi:
             count_entailment += 1
         if label == "neutral":
             count_neutral += 1
-            print(premise, hypothesis, label)
+            print(premise, hypothesis, label, file=f)
         if label == "contradiction":
             count_contradiction += 1
-            print(premise, hypothesis, label)
+            print(premise, hypothesis, label, file=f)
 
     #print(premise, hypothesis, label)
 
-print("Entailment:", count_entailment)
-print("Contradiction:", count_contradiction)
-print("Neutral:", count_neutral)
+print("Entailment:", count_entailment, file=f)
+print("Contradiction:", count_contradiction, file=f)
+print("Neutral:", count_neutral, file=f)
