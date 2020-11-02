@@ -1,1 +1,7 @@
 *.pyc
+*cache*
+
+# these files are too large
+*rosa_heuristics*
+*esnli_train.txt
+*multinli*
