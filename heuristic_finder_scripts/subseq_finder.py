@@ -35,17 +35,20 @@ for line in fi:
     prem_filtered = " ".join(prem_words)
     hyp_filtered = " ".join(hyp_words)
 
-    if hyp_filtered in prem_filtered:
-        if label == "entailment":
-            count_entailment += 1
-        if label == "neutral":
-            count_neutral += 1
-            #print(premise, hypothesis, label)
-            fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
-        if label == "contradiction":
-            count_contradiction += 1
-            # print(premise, hypothesis, label)
-            fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
+    hypo_len = len(hypothesis.strip().split(" "))
+    expl1_len = len(expl1.strip().split(" "))
+    if hypo_len >= 3 and expl1_len >= 3:
+        if hyp_filtered in prem_filtered:
+            if label == "entailment":
+                count_entailment += 1
+            if label == "neutral":
+                count_neutral += 1
+                #print(premise, hypothesis, label)
+                fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
+            if label == "contradiction":
+                count_contradiction += 1
+                # print(premise, hypothesis, label)
+                fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
 
 print("Entailment:", count_entailment)
 print("Contradiction:", count_contradiction)
