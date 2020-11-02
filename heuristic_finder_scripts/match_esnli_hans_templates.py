@@ -10,16 +10,19 @@ global nltk2mycode
 nltk2mycode = {}
 nltk2mycode['CC'] = 'CC'
 nltk2mycode['DT'] = 'DT'
-nltk2mycode['PRP$'] = 'DT' # his/its/her/their etc.
 nltk2mycode['IN'] = 'P'
 nltk2mycode['JJ'] = 'ADJ'
 nltk2mycode['JJR'] = 'ADJ'
 nltk2mycode['JJS'] = 'ADJ'
 nltk2mycode['CD'] = 'ADJ' # numbers for counting etc.
 nltk2mycode['PDT'] = 'ADJ' # all/both/half/many/quite/such/this etc.
-nltk2mycode[':'] = ':'
-nltk2mycode[';'] = ';'
-nltk2mycode[','] = ','
+nltk2mycode['PRP$'] = 'ADJ' # his/its/her/their etc.
+# nltk2mycode[':'] = ':'
+# nltk2mycode[';'] = ';'
+# nltk2mycode[','] = ','
+nltk2mycode[':'] = 'IGNORE'
+nltk2mycode[';'] = 'IGNORE'
+nltk2mycode[','] = 'IGNORE'
 nltk2mycode['NN'] = 'N'
 nltk2mycode['NNS'] = 'N'
 nltk2mycode['NNP'] = 'N'
@@ -31,9 +34,12 @@ nltk2mycode['VBG'] = 'V'
 nltk2mycode['VBN'] = 'V'
 nltk2mycode['VBP'] = 'V'
 nltk2mycode['VBZ'] = 'V'
-nltk2mycode['RB'] = 'ADV'
-nltk2mycode['RBR'] = 'ADV'
-nltk2mycode['RBS'] = 'ADV'
+# nltk2mycode['RB'] = 'ADV'
+# nltk2mycode['RBR'] = 'ADV'
+# nltk2mycode['RBS'] = 'ADV'
+nltk2mycode['RB'] = 'IGNORE'
+nltk2mycode['RBR'] = 'IGNORE'
+nltk2mycode['RBS'] = 'IGNORE'
 nltk2mycode['WDT'] = 'RELS' # relative clause
 nltk2mycode['WP'] = 'RELS' # relative clause
 nltk2mycode['WRB'] = 'RELS' # relative clause
@@ -110,7 +116,7 @@ def get_hans_templates():
                                                ['DT', 'N', 'V', 'DT', 'N', 'RELS', 'DT', 'N', 'V'],
                                                ['DT', 'N', 'V', 'DT', 'N', 'RELS', 'V', 'DT', 'N']],
                                    'hypothesis': [['DT', 'N', 'V', 'DT', 'N'],
-                                                  ['DT', 'N', 'V', 'DT', 'N'].
+                                                  ['DT', 'N', 'V', 'DT', 'N'],
                                                   ['DT', 'N', 'V', 'DT', 'N']]}
     # [(0, "the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,preps), (6,"the"), (7,nouns), (8,".")]
     # [0,1,2,3,4,8]
