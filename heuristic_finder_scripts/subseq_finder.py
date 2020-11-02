@@ -43,12 +43,9 @@ for line in fi:
                 count_entailment += 1
             if label == "neutral":
                 count_neutral += 1
-                #print(premise, hypothesis, label)
-                fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
             if label == "contradiction":
                 count_contradiction += 1
-                # print(premise, hypothesis, label)
-                fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
+            fo_row_data.append([guid, label, premise, hypothesis, expl1, ""])
 
 print("Entailment:", count_entailment)
 print("Contradiction:", count_contradiction)
