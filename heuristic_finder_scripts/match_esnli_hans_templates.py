@@ -50,31 +50,73 @@ nltk2mycode["''"] = "IGNORE"
 
 
 def get_hans_templates():
+    # NOTE: do not include ., because the original snli might not have periods
+
     # Subsequence: Not entailed
-    # the N V the N V .
     # [(0,"the"), (1,nouns),(2,nps_verbs), (3,"the"), (4,nouns), (5,"VP"), (6, ".")]
     # [0,1,2,3,4,6]
-    # NOTE: do not include ., because the original snli might not have periods
-    subseq_nps_templates = {'name': 'subseq_nps_templates', 'premise': [['DT', 'N', 'V', 'DT', 'N', 'V']], 'hypothesis': [['DT', 'N', 'V', 'DT', 'N']]} 
-    # the N P the N V .
+    subseq_nps_templates = {'name': 'subseq_nps_templates', 
+                            'premise': [['DT', 'N', 'V', 'DT', 'N', 'V']], 
+                            'hypothesis': [['DT', 'N', 'V', 'DT', 'N']]} 
     # [(0,"the"), (1,nouns), (2,preps), (3,"the"), (4,nouns), (5,"VP"), (6, ".")]
     # [3,4,5,6]
-    subseq_pp_on_subj_templates = {'name': 'subseq_pp_on_subj_templates', 'premise': [['DT', 'N', 'P', 'DT', 'N', 'V']], 'hypothesis': [['DT', 'N', 'V']]}
-    # subseq_rel_on_subj_templates = 
-    # subseq_past_participle_templates = 
-    # subseq_npz_templates = 
+    subseq_pp_on_subj_templates = {'name': 'subseq_pp_on_subj_templates', 
+                                   'premise': [['DT', 'N', 'P', 'DT', 'N', 'V']], 
+                                   'hypothesis': [['DT', 'N', 'V']]}
+    # [(0,"the"), (1,nouns), (2,rels), (3,transitive_verbs), (4,"the"), (5,nouns), (6,"VP"), (7,".")]
+    # [4,5,6,7]
+    subseq_rel_on_subj_templates = {'name': 'subseq_rel_on_subj_templates',
+                                    'premise': [['DT', 'N', 'RELS', 'V', 'DT', 'N', 'V']],
+                                    'hypothesis': [['DT', 'N', 'V']]}
+    # [(0,"the"), (1,nouns), (2,past_participles), (3,"in"), (4,"the"), (5,location_nouns_b),(6,"VP"),(7,".")],[0,1,2,3,4,5,7]
+    # [(0,"the"), (1,nouns), (2,transitive_verbs),(3,"the"),(4,nouns), (5,past_participles), (6,"in"), (7,"the"), (8,location_nouns_b),(9,".")],[3,4,5,6,7,8,9]
+    subseq_past_participle_templates = {'name': 'subseq_past_participle_templates',
+                                        'premise': [['DT', 'N', 'V', 'P', 'DT', 'N', 'V'], 
+                                                    ['DT', 'N', 'V', 'DT', 'N', 'V', 'P', 'DT', 'N']],
+                                        'hypothesis': [['DT', 'N', 'V', 'P', 'DT', 'N'], 
+                                                       ['DT', 'N', 'V', 'P', 'DT', 'N']]}
+    # [(0,conjs), (1,"the"), (2,nouns), (3,npz_verbs), (4,"the"), (5,nouns), (6,"VP"), (7, ".")], [1,2,3,4,5,7]
+    # [(0,conjs), (1,"the"), (2,nouns_pl), (3,npz_verbs_plural), (4,"the"), (5,nouns), (6,"VP"), (7, ".")], [1,2,3,4,5,7] 
+    # the 2nd one differs from the 1st one only in terms of plurality, which is ignored in our algorithm
+    subseq_npz_templates = {'name' : 'subseq_npz_templates',
+                            'premise': [['CC', 'DT', 'N', 'V', 'DT', 'N', 'V']], 
+                            'hypothesis': [['DT', 'N', 'V', 'DT', 'N']]}
 
     # Subsequence: Entailed
     # [(0, "the"), (1,nouns), (2,"and"), (3,"the"), (4,nouns), (5,"VP"), (6, ".")], [3,4,5,6]
     # [(0, "the"), (1,nouns),(2, transitive_verbs), (3, "the"), (4, nouns), (5, "and"), (6, "the"), (7, nouns), (8, ".")], [0,1,2,3,4,8]
-    subseq_conj_templates = {'name': 'subseq_conj_templates', 'premise': [['DT', 'N', 'CC', 'DT', 'N', 'V'], ['DT', 'N', 'V', 'DT', 'N', 'CC', 'DT', 'N']], 
-                             'hypothesis': [['DT', 'N', 'V'], ['DT', 'N', 'V', 'DT', 'N']]}
-        
-    # [(0, adjs), (1,nouns_pl), (2,"VP"), (3, ".")], [1,2,3]
+    subseq_conj_templates = {'name': 'subseq_conj_templates', 
+                             'premise': [['DT', 'N', 'CC', 'DT', 'N', 'V'], 
+                                         ['DT', 'N', 'V', 'DT', 'N', 'CC', 'DT', 'N']], 
+                             'hypothesis': [['DT', 'N', 'V'], 
+                                            ['DT', 'N', 'V', 'DT', 'N']]}
+    # [(0, adjs), (1,nouns_pl), (2,"VP"), (3, ".")]
+    # [1,2,3]
     subseq_adj_templates = {'name': 'subseq_adj_templates', 'premise': [['ADJ', 'N', 'V']], 'hypothesis': [['N', 'V']]}
-    # subseq_understood_templates =
-    # subseq_rel_on_obj_templates =
-    # subseq_pp_on_obj_templates =
+    # [(0,"the"), (1,nouns), (2,understood_argument_verbs), (3, "the"), (4,"vobj:2"), (5, ".")]
+    # [0,1,2,5]
+    # vobj:2 is the object and is therefore a noun
+    subseq_understood_templates = {'name': 'subseq_understood_templates',
+                                   'premise': [['DT', 'N', 'V', 'DT', 'N']],
+                                   'hypothesis': [['DT', 'N', 'V', 'N']]}
+    # [(0, "the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,"RC"), (6,".")]
+    # [0,1,2,3,4,6]
+    # RC: 
+        # 1. rel + " " + verb
+        # 2. rel + " the " + arg + " " + verb
+        # 3. rel + " " + verb + " the " + arg
+    subseq_rel_on_obj_templates = {'name': 'subseq_rel_on_obj_templates',
+                                   'premise': [['DT', 'N', 'V', 'DT', 'N', 'RELS', 'V'],
+                                               ['DT', 'N', 'V', 'DT', 'N', 'RELS', 'DT', 'N', 'V'],
+                                               ['DT', 'N', 'V', 'DT', 'N', 'RELS', 'V', 'DT', 'N']],
+                                   'hypothesis': [['DT', 'N', 'V', 'DT', 'N'],
+                                                  ['DT', 'N', 'V', 'DT', 'N'].
+                                                  ['DT', 'N', 'V', 'DT', 'N']]}
+    # [(0, "the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,preps), (6,"the"), (7,nouns), (8,".")]
+    # [0,1,2,3,4,8]
+    subseq_pp_on_obj_templates = {'name': 'subseq_pp_on_obj_templates',
+                                  'premise': [['DT', 'N', 'V', 'DT', 'N', 'P', 'DT', 'N']],
+                                  'hypothesis': [['DT', 'N', 'V', 'DT', 'N']]}
 
     debug_templates = {'name': 'debug_templates', 'premise': [['DT', 'N', 'V', 'DT', 'ADJ', 'N', 'P', 'DT', 'N']], 'hypothesis': [['DT', 'N', 'V', 'DT', 'ADJ', 'N']]}
 
