@@ -8,6 +8,12 @@ from myTools import write_csv
 
 global nltk2mycode
 nltk2mycode = {}
+nltk2mycode['P'] = 'P'
+nltk2mycode['ADJ'] = 'ADJ'
+nltk2mycode['ADJ'] = 'ADJ'
+nltk2mycode['RELS'] = 'RELS'
+nltk2mycode['N'] = 'N'
+nltk2mycode['V'] = 'V'
 nltk2mycode['CC'] = 'CC'
 nltk2mycode['DT'] = 'DT'
 nltk2mycode['IN'] = 'P'
@@ -124,11 +130,11 @@ def get_hans_templates():
                                   'premise': [['DT', 'N', 'V', 'DT', 'N', 'P', 'DT', 'N']],
                                   'hypothesis': [['DT', 'N', 'V', 'DT', 'N']]}
 
-    debug_templates = {'name': 'debug_templates', 'premise': [['DT', 'N', 'V', 'DT', 'ADJ', 'N', 'P', 'DT', 'N']], 'hypothesis': [['DT', 'N', 'V', 'DT', 'ADJ', 'N']]}
+    # debug_templates = {'name': 'debug_templates', 'premise': [['DT', 'N', 'V', 'DT', 'ADJ', 'N', 'P', 'DT', 'N']], 'hypothesis': [['DT', 'N', 'V', 'DT', 'ADJ', 'N']]}
 
     templates = {}
-    templates['ent'] = [subseq_conj_templates, subseq_adj_templates, debug_templates]
-    templates['non-ent'] = [subseq_nps_templates, subseq_pp_on_subj_templates, debug_templates]
+    templates['ent'] = [subseq_conj_templates, subseq_adj_templates]
+    templates['non-ent'] = [subseq_nps_templates, subseq_pp_on_subj_templates]
     return templates
 
 
@@ -136,7 +142,6 @@ def get_pos_tags(text):
     # nltk pos tags and then convert to my codes for different word types
     token_list = nltk.tokenize.word_tokenize(text)
     nltk_pos_tags =  nltk.pos_tag(token_list)
-    
     global nltk2mycode
     # my_pos_tags = []
     # for pair in nltk_pos_tags:
@@ -154,6 +159,12 @@ def get_pos_tags(text):
     
 
 def match_templates(label, p_my_pt, h_my_pt, templates):
+    global nltk2mycode
+    p_my_pt = [nltk2mycode[elt] if elt in nltk2mycode else print("unknown word type: ", elt) for elt in p_my_pt]
+    p_my_pt = [pt for pt in p_my_pt if pt!='IGNORE']
+    h_my_pt = [nltk2mycode[elt] if elt in nltk2mycode else print("unknown word type: ", elt) for elt in h_my_pt]
+    h_my_pt = [pt for pt in h_my_pt if pt!='IGNORE']
+
     label_templates = templates['ent'] if label == 'entailment' else templates['non-ent'] #TODO: check
     matched_template_name = None
 
@@ -164,6 +175,14 @@ def match_templates(label, p_my_pt, h_my_pt, templates):
         for i in range(len(p_templates)):
             p_template = p_templates[i]
             h_template = h_templates[i]
+            # if set(p_template) == set(p_my_pt):
+            #     print('***************')
+            #     print(p_template)
+            #     print(p_my_pt)
+            # if h_template == h_my_pt:
+            #     print('***************')
+            #     print(h_template)
+            #     print(h_my_pt)
             if p_template == p_my_pt and h_template == h_my_pt:
                 if matched_template_name != None:
                     print('multiple matches!')

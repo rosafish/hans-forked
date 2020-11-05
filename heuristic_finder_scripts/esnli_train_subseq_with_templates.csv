@@ -1,3 +1,2 @@
 guid,label,premise,hypothesis,expl1,template
-2644326817.jpg#3r1e,entailment,A dog drops a red disc on a beach.,a dog drops a red disc,On a beach is a description that can be left out without substantially changing the meaning.,debug_templates
 3090021677.jpg#4r2e,entailment,Two men hanging out together.,Men hanging out,Together implies hanging out.,subseq_adj_templates
