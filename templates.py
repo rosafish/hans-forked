@@ -349,7 +349,7 @@ advs_outside_entailed = ["after", "before", "because", "although", "though", "si
 
 
 # Lexical Overlap: Simple sentence
-lex_simple_templates = [(1.0, ([(0,"the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,".")], [3,4,2,0,1,5],"temp1",["(ROOT (S (NP (DT The) (", "nn,1", " ", 1,")) (VP (VBD ", 2, ") (NP (DT the) (", "nn,4", " ",4,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"]))]
+lex_simple_templates = [(1.0, ([(0,"the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,".")], [3,4,2,0,1,5],"temp1",["(ROOT (S (NP (DT The) (", "nn,1", " ", 1,")) (VP (VBD ", 2, ") (NP (DT the) (", "nn,4", " ",4,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0, 1, 2, 3, 4, 'does not imply', 3, 4, 2, 0, 1, 5], [0, 1, 'and', 3, 4, 'are swapped', 5, 0, 1, 2, 3, 4, 'does not imply', 3, 4, 2, 0, 1, 5]))]
 
 # Lexical Overlap: Preposition on subject
 lex_prep_templates = [
@@ -413,7 +413,7 @@ lex_ent_conj_templates = [
         ]
 
 # Lexical Overlap: Across adverb
-lex_cross_adv_ent_templates = [(1.0,([(0,"the"), (1,nouns), (2,advs), (3,verbs), (4,".")], [0,1,3,4],"temp34"))]
+# lex_cross_adv_ent_templates = [(1.0,([(0,"the"), (1,nouns), (2,advs), (3,verbs), (4,".")], [0,1,3,4],"temp34"))]
 
 
 # Lexical Overlap: Passive
@@ -460,7 +460,7 @@ subseq_adj_templates = [(1.0, ([(0, adjs), (1,nouns_pl), (2,"VP"), (3, ".")], [1
 
 
 # Subsequence: Adverb
-subseq_adv_templates = [(1.0, ([(0, "the"), (1,nouns), (2,"VP"), (3, advs), (4,".")], [0,1,2]))]
+# subseq_adv_templates = [(1.0, ([(0, "the"), (1,nouns), (2,"VP"), (3, advs), (4,".")], [0,1,2]))]
 
 # Subsequence: Understood argument
 subseq_understood_templates = [(1.0, ([(0,"the"), (1,nouns), (2,understood_argument_verbs), (3, "the"), (4,"vobj:2"), (5, ".")], [0,1,2,5],"temp47", ["(ROOT (S (NP (DT The) (","nn,1"," ", 1,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,4"," ",4,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,1"," ", 1,")) (VP (VBD ", 2,")) (. .)))"]))]
