@@ -56,29 +56,29 @@ def output_samples_to_file(samples, path):
     fo.close()
 
 def main():
-    train = './rosa_heuristics_train_set_25k.txt'
-    dev = './rosa_heuristics_dev_set_2500.txt'
-    test = './rosa_heuristics_test_set_2500.txt'
+    train = './rosa_heuristics_train_set_30T_300.txt'
+    dev = './rosa_heuristics_dev_set_30T_300.txt'
+    # test = './rosa_heuristics_test_set_2500.txt'
 
     train_samples = read_data(train)
     dev_samples = read_data(dev)
-    test_samples = read_data(test)
+    # test_samples = read_data(test)
 
     print(len(set(train_samples))) # no dups in train
     print(len(set(dev_samples))) # no dups in dev
-    print(len(set(test_samples))) # no dups in test
-    print(len(set(test_samples)|set(train_samples))) # 8 overlaps between train and test
+    # print(len(set(test_samples))) # no dups in test
+    # print(len(set(test_samples)|set(train_samples))) # 8 overlaps between train and test
     print(len(set(dev_samples)|set(train_samples))) # 4 overlaps between train and dev
-    print(len(set(dev_samples)|set(test_samples))) # no overlap between dev and test
+    # print(len(set(dev_samples)|set(test_samples))) # no overlap between dev and test
 
     # remove dups from dev and test
     dev_filtered = set(dev_samples) - set(train_samples)
-    test_filtered = set(test_samples) - set(train_samples)
+    # test_filtered = set(test_samples) - set(train_samples)
    
 
     # output the filtered sets
-    output_samples_to_file(dev_filtered, "./rosa_heuristics_dev_set_2500_filtered.txt")
-    output_samples_to_file(test_filtered, "./rosa_heuristics_test_set_2500_filtered.txt")
+    output_samples_to_file(dev_filtered, "./rosa_heuristics_dev_set_30T_300_filtered.txt")
+    # output_samples_to_file(test_filtered, "./rosa_heuristics_test_set_2500_filtered.txt")
 
 
 if __name__=="__main__":
