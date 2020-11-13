@@ -56,8 +56,8 @@ def output_samples_to_file(samples, path):
     fo.close()
 
 def main():
-    train = './rosa_heuristics_train_set_30T_300.txt'
-    dev = './rosa_heuristics_dev_set_30T_300.txt'
+    train = './rosa_heuristics_train_set_30T_15000.txt'
+    dev = './rosa_heuristics_dev_set_30T_300_filtered_1500_3000.txt'
     # test = './rosa_heuristics_test_set_2500.txt'
 
     train_samples = read_data(train)
@@ -77,7 +77,7 @@ def main():
    
 
     # output the filtered sets
-    output_samples_to_file(dev_filtered, "./rosa_heuristics_dev_set_30T_300_filtered.txt")
+    output_samples_to_file(dev_filtered, "./rosa_heuristics_dev_set_30T_300_filtered_1500_3000_15000.txt")
     # output_samples_to_file(test_filtered, "./rosa_heuristics_test_set_2500_filtered.txt")
 
 
