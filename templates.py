@@ -288,13 +288,51 @@ def postprocess(sentence):
 
     return sentence
 
-nouns_sg = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete"]
-nouns_pl = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes"]
-nouns = nouns_sg + nouns_pl
-transitive_verbs =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
-passive_verbs = ["recommended","helped","supported","contacted","believed","avoided","advised","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
-intransitive_verbs =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed"]
-verbs = transitive_verbs + intransitive_verbs
+nouns_sg_train = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
+            "accessory designer", "advertising designer", "animator", "architect", "art administrator", "artisan", "art therapist", "baker", "ceramics artist", "chief creative officer", \
+            "colorist", "concept artist", "curator", "dancer", "design director", "design strategist", "essayist", "event planner", "fashion designer", "fine artist", "floral designer", \
+            "graphic designer", "hair stylist", "illustrator", "tattoo artist", "interior designer", "jewellery designer", "lyricist", "make-up artist", "marine designer", "media designer", \
+            "musician", "party planner", "penciller", "photographer", "photojournalist", "potter", "production designer", "sculptor", "set decorator", "set dresser", "singer", "web designer", \
+            "wedding planner", "writer"]
+nouns_pl_train = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
+            "accessory designers", "advertising designers", "animators", "architects", "art administrators", "artisans", "art therapists", "bakers", "ceramics artists", "chief creative officers", \
+            "colorists", "concept artists", "curators", "dancers", "design directors", "design strategists", "essayists", "event planners", "fashion designers", "fine artists", "floral designers", \
+            "graphic designers", "hair stylists", "illustrators", "tattoo artists", "interior designers", "jewellery designers", "lyricists", "make-up artists", "marine designers", "media designers", \
+            "musicians", "party planners", "pencillers", "photographers", "photojournalists", "potters", "production designers", "sculptors", "set decorators", "set dressers", "singers", "web designers", \
+            "wedding planners", "writers"]
+nouns_train = nouns_sg_train + nouns_pl_train
+
+nouns_sg_dev = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
+            "accessory designer", "advertising designer", "animator", "architect", "art administrator", "artisan", "art therapist", "baker", "ceramics artist", "chief creative officer", \
+            "colorist", "concept artist", "curator", "dancer", "design director", "design strategist", "essayist", "event planner", "fashion designer", "fine artist", "floral designer", \
+            "graphic designer", "hair stylist", "illustrator", "tattoo artist", "interior designer", "jewellery designer", "lyricist", "make-up artist", "marine designer", "media designer", \
+            "musician", "party planner", "penciller", "photographer", "photojournalist", "potter", "production designer", "sculptor", "set decorator", "set dresser", "singer", "web designer", \
+            "wedding planner", "writer", "chaplain", "licensed behavior analyst", "licensed professional counselor", "mental health professional", "occupational therapist", \
+            "psychiatric nurse", "psychiatrist", "experimental psychologist", "psychologist", "psychotherapist", "school counselor", "sex therapist", "social worker", "aeronautical engineer", \
+            "biomedical engineer", "civil engineer", "chemical engineer", "educational technologist", "electrical engineer", "engineering technician", "engineering technologist", \
+            "petrochemical engineer", "mechanical engineer"]
+nouns_pl_dev = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
+            "accessory designers", "advertising designers", "animators", "architects", "art administrators", "artisans", "art therapists", "bakers", "ceramics artists", "chief creative officers", \
+            "colorists", "concept artists", "curators", "dancers", "design directors", "design strategists", "essayists", "event planners", "fashion designers", "fine artists", "floral designers", \
+            "graphic designers", "hair stylists", "illustrators", "tattoo artists", "interior designers", "jewellery designers", "lyricists", "make-up artists", "marine designers", "media designers", \
+            "musicians", "party planners", "pencillers", "photographers", "photojournalists", "potters", "production designers", "sculptors", "set decorators", "set dressers", "singers", "web designers", \
+            "wedding planners", "writers", "chaplains", "licensed behavior analysts", "licensed professional counselors", "mental health professionals", "occupational therapists", \
+            "psychiatric nurses", "psychiatrists", "experimental psychologists", "psychologists", "psychotherapists", "school counselors", "sex therapists", "social workers", "aeronautical engineers", \
+            "biomedical engineers", "civil engineers", "chemical engineers", "educational technologists", "electrical engineers", "engineering technicians", "engineering technologists", \
+            "petrochemical engineers", "mechanical engineers"]
+nouns_dev = nouns_sg_dev + nouns_pl_dev
+
+transitive_verbs_train =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
+passive_verbs = ["recommended","called","helped","supported","contacted","believed","avoided","advised","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
+intransitive_verbs_train =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed"]
+verbs_train = transitive_verbs_train + intransitive_verbs_train
+
+transitive_verbs_dev =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired", \
+                         "addressed", "borrowed", "brought", "discussed", "raised", "offered", "wrote", "promised", "had"]
+intransitive_verbs_dev =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
+                           "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "left", "lay", "listened", "panicked", "smiled", \
+                           "talked", "worked", "yell"]
+verbs_dev = transitive_verbs_dev + intransitive_verbs_dev
 
 nps_verbs = ["believed", "knew", "heard"]
         #"forgot", "preferred", "claimed", "wanted", "needed", "found", "suggested", "expected"] # These all appear at least 100 times with both NP and S arguments 
@@ -314,10 +352,19 @@ location_nouns = ["neighborhood", "region", "country", "town", "valley", "forest
 location_nouns_b = ["museum", "school", "library", "office","laboratory"]
 won_objects = ["race", "contest", "war", "prize", "competition", "election", "battle", "award", "tournament"] 
 read_wrote_objects = ["book", "column", "report", "poem", "letter", "novel", "story", "play", "speech"]
-adjs = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry"] # All at least 100 times in MNLI
+adjs_train = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry"] # All at least 100 times in MNLI
+
+adjs_dev = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry", \
+            "attractive", "agreeable", "angry", "thoughtless", "obedient", "muscular", "skinny", "silly", "gentle", "happy", "lazy", "nervous"] 
+
 adj_comp_nonent = ["afraid", "sure", "certain"]
 adj_comp_ent = ["sorry", "aware", "glad"]
-advs = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully"] # All at least 100 times in MNLI
+advs_train = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully"] # All at least 100 times in MNLI
+
+advs_dev = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
+            "anxiously", "arrogantly", "awkwardly", "bashfully", "bitterly", "blindly", "blissfully", "boastfully", "boldly", "bravely", "briefly", "brightly", "briskly", \
+            "broadly", "busily", "calmly", "carefully", "carelessly", "cautiously", "certainly", "cheerfully"] 
+
 const_adv = ["after", "before", "because", "although", "though", "since", "while"]
 const_quot_entailed = ["forgot", "learned", "remembered", "knew"]
 advs_nonentailed = ["supposedly", "probably", "maybe", "hopefully"]
@@ -346,7 +393,29 @@ advs_embed_entailed = ["after", "before", "because", "although", "though", "sinc
 advs_outside_not_entailed = ["if", "unless"]
 advs_outside_entailed = ["after", "before", "because", "although", "though", "since", "while"]
 
+data_type = "dev" # "dev" or "train"
+if data_type == "dev":
+    nouns_sg = nouns_sg_dev
+    nouns_pl = nouns_pl_dev
+    nouns = nouns_dev
+    
+    transitive_verbs = transitive_verbs_dev 
+    intransitive_verbs = intransitive_verbs_dev
+    verbs = verbs_dev 
+    
+    advs = advs_dev
+    adjs = adjs_dev
+else:
+    nouns_sg = nouns_sg_train
+    nouns_pl = nouns_pl_train
+    nouns = nouns_train
+    
+    transitive_verbs = transitive_verbs_train
+    intransitive_verbs = intransitive_verbs_train
+    verbs = verbs_train
 
+    advs = advs_train
+    adjs = adjs_train
 
 # Lexical Overlap: Simple sentence
 lex_simple_templates = [(1.0, ([(0,"the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,".")], [3,4,2,0,1,5],"temp1",["(ROOT (S (NP (DT The) (", "nn,1", " ", 1,")) (VP (VBD ", 2, ") (NP (DT the) (", "nn,4", " ",4,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0, 1, 2, 3, 4, 'does not imply', 3, 4, 2, 0, 1, 5], [0, 1, 'and', 3, 4, 'are swapped', 5, 0, 1, 2, 3, 4, 'does not imply', 3, 4, 2, 0, 1, 5]))]
