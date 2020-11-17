@@ -112,6 +112,7 @@ def parse_pp(pp):
     elif words[:3] == ["in", "front", "of"]:
         return "(PP (IN in) (NP (NP (NN front)) (PP (IN of) (NP (NP (DT the) (" + noun_tag(words[-1]) + " " + words[-1] + "))))))"
     else:
+        print(words)
         return "(PP (IN " + words[0] + ") (NP (DT the) (" + noun_tag(words[-1]) + " " + words[-1] + ")))"
 
 def generate_rc():
@@ -289,37 +290,27 @@ def postprocess(sentence):
     return sentence
 
 nouns_sg_train = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
-            "accessory designer", "advertising designer", "animator", "architect", "art administrator", "artisan", "art therapist", "baker", "ceramics artist", "chief creative officer", \
-            "colorist", "concept artist", "curator", "dancer", "design director", "design strategist", "essayist", "event planner", "fashion designer", "fine artist", "floral designer", \
-            "graphic designer", "hair stylist", "illustrator", "tattoo artist", "interior designer", "jewellery designer", "lyricist", "make-up artist", "marine designer", "media designer", \
-            "musician", "party planner", "penciller", "photographer", "photojournalist", "potter", "production designer", "sculptor", "set decorator", "set dresser", "singer", "web designer", \
-            "wedding planner", "writer"]
+            "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
+            "colorist", "curator", "dancer", "director", "strategist", "essayist", "planner", "stylist", "illustrator", "lyricist", \
+            "musician", "penciller", "photographer", "photojournalist", "potter", "sculptor", "singer", "writer"]
 nouns_pl_train = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
-            "accessory designers", "advertising designers", "animators", "architects", "art administrators", "artisans", "art therapists", "bakers", "ceramics artists", "chief creative officers", \
-            "colorists", "concept artists", "curators", "dancers", "design directors", "design strategists", "essayists", "event planners", "fashion designers", "fine artists", "floral designers", \
-            "graphic designers", "hair stylists", "illustrators", "tattoo artists", "interior designers", "jewellery designers", "lyricists", "make-up artists", "marine designers", "media designers", \
-            "musicians", "party planners", "pencillers", "photographers", "photojournalists", "potters", "production designers", "sculptors", "set decorators", "set dressers", "singers", "web designers", \
-            "wedding planners", "writers"]
+            "designers", "animators", "architects", "administrators", "artisans", "therapists", "bakers", "artists", "officers", \
+            "colorists", "curators", "dancers", "directors", "strategists", "essayists", "planners", "stylists", "illustrators", "lyricists", \
+            "musicians", "pencillers", "photographers", "photojournalists", "potters", "sculptors", "singers", "writers"]
 nouns_train = nouns_sg_train + nouns_pl_train
 
 nouns_sg_dev = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
-            "accessory designer", "advertising designer", "animator", "architect", "art administrator", "artisan", "art therapist", "baker", "ceramics artist", "chief creative officer", \
-            "colorist", "concept artist", "curator", "dancer", "design director", "design strategist", "essayist", "event planner", "fashion designer", "fine artist", "floral designer", \
-            "graphic designer", "hair stylist", "illustrator", "tattoo artist", "interior designer", "jewellery designer", "lyricist", "make-up artist", "marine designer", "media designer", \
-            "musician", "party planner", "penciller", "photographer", "photojournalist", "potter", "production designer", "sculptor", "set decorator", "set dresser", "singer", "web designer", \
-            "wedding planner", "writer", "chaplain", "licensed behavior analyst", "licensed professional counselor", "mental health professional", "occupational therapist", \
-            "psychiatric nurse", "psychiatrist", "experimental psychologist", "psychologist", "psychotherapist", "school counselor", "sex therapist", "social worker", "aeronautical engineer", \
-            "biomedical engineer", "civil engineer", "chemical engineer", "educational technologist", "electrical engineer", "engineering technician", "engineering technologist", \
-            "petrochemical engineer", "mechanical engineer"]
+                "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
+                "colorist", "curator", "dancer", "director", "strategist", "essayist", "planner", "stylist", "illustrator", "lyricist", \
+                "musician", "penciller", "photographer", "photojournalist", "potter", "sculptor", "singer", "writer", \
+                "chaplain", "analyst", "counselor", "nurse", "psychiatrist", "psychologist", "psychotherapist", "worker", "engineer", \
+                "technologist", "technician"]
 nouns_pl_dev = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
-            "accessory designers", "advertising designers", "animators", "architects", "art administrators", "artisans", "art therapists", "bakers", "ceramics artists", "chief creative officers", \
-            "colorists", "concept artists", "curators", "dancers", "design directors", "design strategists", "essayists", "event planners", "fashion designers", "fine artists", "floral designers", \
-            "graphic designers", "hair stylists", "illustrators", "tattoo artists", "interior designers", "jewellery designers", "lyricists", "make-up artists", "marine designers", "media designers", \
-            "musicians", "party planners", "pencillers", "photographers", "photojournalists", "potters", "production designers", "sculptors", "set decorators", "set dressers", "singers", "web designers", \
-            "wedding planners", "writers", "chaplains", "licensed behavior analysts", "licensed professional counselors", "mental health professionals", "occupational therapists", \
-            "psychiatric nurses", "psychiatrists", "experimental psychologists", "psychologists", "psychotherapists", "school counselors", "sex therapists", "social workers", "aeronautical engineers", \
-            "biomedical engineers", "civil engineers", "chemical engineers", "educational technologists", "electrical engineers", "engineering technicians", "engineering technologists", \
-            "petrochemical engineers", "mechanical engineers"]
+                "designers", "animators", "architects", "administrators", "artisans", "therapists", "bakers", "artists", "officers", \
+                "colorists", "curators", "dancers", "directors", "strategists", "essayists", "planners", "stylists", "illustrators", "lyricists", \
+                "musicians", "pencillers", "photographers", "photojournalists", "potters", "sculptors", "singers", "writers", \
+                "chaplains", "analysts", "counselors", "nurses", "psychiatrists", "psychologists", "psychotherapists", "workers", "engineers", \
+                "technologists", "technicians"]
 nouns_dev = nouns_sg_dev + nouns_pl_dev
 
 transitive_verbs_train =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
@@ -380,7 +371,7 @@ object_dict["brought"] = food_words
 object_dict["made"] = food_words 
 object_dict["saved"] = food_words
 object_dict["offered"] = food_words
-object_dict["paid"] = nouns
+# object_dict["paid"] = nouns
 object_dict["explored"] = location_nouns
 object_dict["won"] = won_objects
 object_dict["wrote"] = read_wrote_objects

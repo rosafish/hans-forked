@@ -78,7 +78,7 @@ def repeaters(sentence):
     else:
         return True
 
-fo = open("rosa_heuristics_train_set_30T_15000.txt", "w")
+fo = open("rosa_heuristics_dev_set_include_unseen_30T_300.txt", "w")
 #fo.write("heuristic\tsubcase\ttemplate\tlabel\tpremise\thypothesis\tpremise_parse\thypothesis_parse\tpremise_binary_parse\thypothesis_binary_parse\n")
 fo.write("gold_label\tsentence1_binary_parse\tsentence2_binary_parse\tsentence1_parse\tsentence2_parse\tsentence1\tsentence2\tpairID\theuristic\tsubcase\ttemplate\tlow_q_expl\thigh_q_expl\n")
 
@@ -93,7 +93,7 @@ for template_tuple in template_list:
     example_dict = {}
     count_examples = 0
 
-    while count_examples < 500:
+    while count_examples < 10:
         example = template_filler(template)
 
         example_sents = tuple(example[:2])
