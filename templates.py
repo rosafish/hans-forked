@@ -112,7 +112,6 @@ def parse_pp(pp):
     elif words[:3] == ["in", "front", "of"]:
         return "(PP (IN in) (NP (NP (NN front)) (PP (IN of) (NP (NP (DT the) (" + noun_tag(words[-1]) + " " + words[-1] + "))))))"
     else:
-        print(words)
         return "(PP (IN " + words[0] + ") (NP (DT the) (" + noun_tag(words[-1]) + " " + words[-1] + ")))"
 
 def generate_rc():
@@ -407,6 +406,8 @@ else:
 
     advs = advs_train
     adjs = adjs_train
+
+object_dict["paid"] = nouns
 
 # Lexical Overlap: Simple sentence
 lex_simple_templates = [(1.0, ([(0,"the"), (1,nouns), (2,transitive_verbs), (3,"the"), (4,nouns), (5,".")], [3,4,2,0,1,5],"temp1",["(ROOT (S (NP (DT The) (", "nn,1", " ", 1,")) (VP (VBD ", 2, ") (NP (DT the) (", "nn,4", " ",4,"))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ", 4,")) (VP (VBD ", 2, ") (NP (DT the) (","nn,1"," ",1,"))) (. .)))"], [0, 1, 2, 3, 4, 'does not imply', 3, 4, 2, 0, 1, 5], [0, 1, 'and', 3, 4, 'are swapped', 5, 0, 1, 2, 3, 4, 'does not imply', 3, 4, 2, 0, 1, 5]))]
