@@ -383,7 +383,7 @@ advs_embed_entailed = ["after", "before", "because", "although", "though", "sinc
 advs_outside_not_entailed = ["if", "unless"]
 advs_outside_entailed = ["after", "before", "because", "although", "though", "since", "while"]
 
-data_type = "dev" # "dev" or "train" 
+data_type = "train" # "dev" or "train" 
 if data_type == "dev":
     nouns_sg = nouns_sg_dev
     nouns_pl = nouns_pl_dev

@@ -1,7 +1,7 @@
 
 from templates import *
 
-data_type = "dev" 
+data_type = "train" 
 
 template_list_train = [
         ("lexical_overlap", "ln_preposition", "neutral", lex_prep_templates), 
@@ -80,7 +80,7 @@ def repeaters(sentence):
     else:
         return True
 
-fo = open("rosa_heuristics_dev_set_include_unseen_6T_300.txt", "w")
+fo = open("rosa_heuristics_train_set_more_nouns_24T_2400.txt", "w")
 #fo.write("heuristic\tsubcase\ttemplate\tlabel\tpremise\thypothesis\tpremise_parse\thypothesis_parse\tpremise_binary_parse\thypothesis_binary_parse\n")
 fo.write("gold_label\tsentence1_binary_parse\tsentence2_binary_parse\tsentence1_parse\tsentence2_parse\tsentence1\tsentence2\tpairID\theuristic\tsubcase\ttemplate\tlow_q_expl\thigh_q_expl\n")
 
@@ -95,7 +95,7 @@ for template_tuple in template_list:
     example_dict = {}
     count_examples = 0
 
-    while count_examples < 50:
+    while count_examples < 100:
         example = template_filler(template)
 
         example_sents = tuple(example[:2])
