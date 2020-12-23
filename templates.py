@@ -1,6 +1,24 @@
 import random
 import numpy as np
 
+nouns_sg = []
+nouns_pl = []
+nouns = []
+transitive_verbs = [] 
+intransitive_verbs = []
+verbs = [] 
+advs = []
+adjs = []
+
+nouns_sg_train = []
+nouns_pl_train = []
+nouns_train = []
+transitive_verbs_train = []
+intransitive_verbs_train = []
+verbs_train = []
+advs_train = []
+adjs_train = []
+
 def despace(string):
     new_string = string.replace("  ", " ")
 
@@ -84,9 +102,6 @@ def binarize_tree(tree):
     return binarize_helper(words)[0]
 
 
-    
-
-
 def generate_vp():
     verb = random.choice(verbs)
     if verb in intransitive_verbs:
@@ -160,7 +175,16 @@ def parse_rc(rc):
         print("INVALID RELATIVIZER")
 
 
-def template_filler(template_list):
+def template_filler(template_list, data_type):
+    
+    if data_type == "train":
+    # randomly sample seen words for training data
+    # Note: dev use all words
+        sample_seen_words()
+
+    # set datasets according to data_type
+    set_datasets_by_type(data_type)
+
     probs = []
     templates = []
 
@@ -288,15 +312,15 @@ def postprocess(sentence):
 
     return sentence
 
-nouns_sg_train = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
-            "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
-            "colorist", "curator", "dancer", "director", "strategist", "essayist", "planner", "stylist", "illustrator", "lyricist", \
-            "musician", "penciller", "photographer", "photojournalist", "potter", "sculptor", "singer", "writer"]
-nouns_pl_train = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
-            "designers", "animators", "architects", "administrators", "artisans", "therapists", "bakers", "artists", "officers", \
-            "colorists", "curators", "dancers", "directors", "strategists", "essayists", "planners", "stylists", "illustrators", "lyricists", \
-            "musicians", "pencillers", "photographers", "photojournalists", "potters", "sculptors", "singers", "writers"]
-nouns_train = nouns_sg_train + nouns_pl_train
+# nouns_sg_train = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
+#             "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
+#             "colorist", "curator", "dancer", "director", "strategist", "essayist", "planner", "stylist", "illustrator", "lyricist", \
+#             "musician", "penciller", "photographer", "photojournalist", "potter", "sculptor", "singer", "writer"]
+# nouns_pl_train = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
+#             "designers", "animators", "architects", "administrators", "artisans", "therapists", "bakers", "artists", "officers", \
+#             "colorists", "curators", "dancers", "directors", "strategists", "essayists", "planners", "stylists", "illustrators", "lyricists", \
+#             "musicians", "pencillers", "photographers", "photojournalists", "potters", "sculptors", "singers", "writers"]
+# nouns_train = nouns_sg_train + nouns_pl_train
 
 nouns_sg_dev = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
                 "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
@@ -312,10 +336,10 @@ nouns_pl_dev = ["professors", "students", "presidents","judges","senators","secr
                 "technologists", "technicians"]
 nouns_dev = nouns_sg_dev + nouns_pl_dev
 
-transitive_verbs_train =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
+# transitive_verbs_train =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
 passive_verbs = ["recommended","called","helped","supported","contacted","believed","avoided","advised","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
-intransitive_verbs_train =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed"]
-verbs_train = transitive_verbs_train + intransitive_verbs_train
+# intransitive_verbs_train =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed"]
+# verbs_train = transitive_verbs_train + intransitive_verbs_train
 
 transitive_verbs_dev =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired", \
                          "addressed", "borrowed", "brought", "discussed", "raised", "offered", "wrote", "promised", "had"]
@@ -342,14 +366,14 @@ location_nouns = ["neighborhood", "region", "country", "town", "valley", "forest
 location_nouns_b = ["museum", "school", "library", "office","laboratory"]
 won_objects = ["race", "contest", "war", "prize", "competition", "election", "battle", "award", "tournament"] 
 read_wrote_objects = ["book", "column", "report", "poem", "letter", "novel", "story", "play", "speech"]
-adjs_train = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry"] # All at least 100 times in MNLI
+# adjs_train = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry"] # All at least 100 times in MNLI
 
 adjs_dev = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry", \
             "attractive", "agreeable", "angry", "thoughtless", "obedient", "muscular", "skinny", "silly", "gentle", "happy", "lazy", "nervous"] 
 
 adj_comp_nonent = ["afraid", "sure", "certain"]
 adj_comp_ent = ["sorry", "aware", "glad"]
-advs_train = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully"] # All at least 100 times in MNLI
+# advs_train = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully"] # All at least 100 times in MNLI
 
 advs_dev = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
             "anxiously", "arrogantly", "awkwardly", "bashfully", "bitterly", "blindly", "blissfully", "boastfully", "boldly", "bravely", "briefly", "brightly", "briskly", \
@@ -383,29 +407,64 @@ advs_embed_entailed = ["after", "before", "because", "although", "though", "sinc
 advs_outside_not_entailed = ["if", "unless"]
 advs_outside_entailed = ["after", "before", "because", "although", "though", "since", "while"]
 
-data_type = "train" # "dev" or "train" 
-if data_type == "dev":
-    nouns_sg = nouns_sg_dev
-    nouns_pl = nouns_pl_dev
-    nouns = nouns_dev
-    
-    transitive_verbs = transitive_verbs_dev 
-    intransitive_verbs = intransitive_verbs_dev
-    verbs = verbs_dev 
-    
-    advs = advs_dev
-    adjs = adjs_dev
-elif data_type == "train":
-    nouns_sg = nouns_sg_train
-    nouns_pl = nouns_pl_train
-    nouns = nouns_train
-    
-    transitive_verbs = transitive_verbs_train
-    intransitive_verbs = intransitive_verbs_train
-    verbs = verbs_train
+def set_datasets_by_type(data_type):
+    # data_type can be either "dev" or "train" 
+    global nouns_sg
+    global nouns_pl
+    global nouns
+    global transitive_verbs
+    global intransitive_verbs
+    global verbs
+    global advs
+    global adjs
 
-    advs = advs_train
-    adjs = adjs_train
+    if data_type == "dev":
+        nouns_sg = nouns_sg_dev
+        nouns_pl = nouns_pl_dev
+        nouns = nouns_dev
+        
+        transitive_verbs = transitive_verbs_dev 
+        intransitive_verbs = intransitive_verbs_dev
+        verbs = verbs_dev 
+        
+        advs = advs_dev
+        adjs = adjs_dev
+    elif data_type == "train":
+        nouns_sg = nouns_sg_train
+        nouns_pl = nouns_pl_train
+        nouns = nouns_train
+        
+        transitive_verbs = transitive_verbs_train
+        intransitive_verbs = intransitive_verbs_train
+        verbs = verbs_train
+
+        advs = advs_train
+        adjs = adjs_train
+
+def sample_first_half(alist):
+    random.shuffle(alist)
+    desired_length = int(len(alist)/2)
+    return alist[:desired_length]
+
+def sample_seen_words():
+    global nouns_sg_train
+    global nouns_pl_train
+    global nouns_train
+    global transitive_verbs_train
+    global intransitive_verbs_train
+    global verbs_train
+    global advs_train
+    global adjs_train
+
+    nouns_sg_train = sample_first_half(nouns_sg_dev)
+    nouns_pl_train = sample_first_half(nouns_pl_dev)
+    transitive_verbs_train = sample_first_half(transitive_verbs_dev)
+    intransitive_verbs_train = sample_first_half(intransitive_verbs_dev)
+    advs_train = sample_first_half(advs_dev)
+    adjs_train = sample_first_half(adjs_dev)
+
+    nouns_train = nouns_sg_train + nouns_pl_train
+    verbs_train = transitive_verbs_train + intransitive_verbs_train
 
 object_dict["paid"] = nouns
 
@@ -497,7 +556,7 @@ subseq_rel_on_subj_templates = [(1.0, ([(0,"the"), (1,nouns), (2,rels), (3,trans
 
 # Subsequence: Past participles
 subseq_past_participle_templates = [
-        ((1.0 * len(intransitive_verbs) + len(transitive_verbs)) / (len(intransitive_verbs) + 2*len(transitive_verbs)), ([(0,"the"), (1,nouns), (2,past_participles), (3,"in"), (4,"the"), (5,location_nouns_b),(6,"VP"),(7,".")],[0,1,2,3,4,5,7],"temp40", ["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1, ")) (VP (VBN ",2,") (PP (IN in) (NP (DT the) (NN ",5,"))))) ","pvp,6"," (. .)))"], ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (PP (IN in) (NP (DT the) (NN ",5,")))) (. .)))"], [0, 1, 6, 7], [0, 1, 'either', 2, 'or someone', 2, 0, 1, 3, 4, 5, 7]， 【1，6)),
+        ((1.0 * len(intransitive_verbs) + len(transitive_verbs)) / (len(intransitive_verbs) + 2*len(transitive_verbs)), ([(0,"the"), (1,nouns), (2,past_participles), (3,"in"), (4,"the"), (5,location_nouns_b),(6,"VP"),(7,".")],[0,1,2,3,4,5,7],"temp40", ["(ROOT (S (NP (NP (DT The) (","nn,1"," ",1, ")) (VP (VBN ",2,") (PP (IN in) (NP (DT the) (NN ",5,"))))) ","pvp,6"," (. .)))"], ["(ROOT (S (NP (DT The) (","nn,1"," ",1,")) (VP (VBD ",2,") (PP (IN in) (NP (DT the) (NN ",5,")))) (. .)))"], [0, 1, 6, 7], [0, 1, 'either', 2, 'or someone', 2, 0, 1, 3, 4, 5, 7], [1.6])),
         ((1.0 * len(transitive_verbs)) / (len(intransitive_verbs) + 2*len(transitive_verbs)), ([(0,"the"), (1,nouns), (2,transitive_verbs),(3,"the"),(4,nouns), (5,past_participles), (6,"in"), (7,"the"), (8,location_nouns_b),(9,".")],[3,4,5,6,7,8,9],"temp41", ["(ROOT (S (NP (DT The) (","nn,1"," ", 1,")) (VP (VBD ",2,") (NP (NP (DT the) (","nn,4"," ",4,")) (VP (VBN ",5,") (PP (IN in) (NP (DT the) (NN ",8,")))))) (. .)))"], ["(ROOT (S (NP (DT The) (","nn,4"," ",4,")) (VP (VBD ",5,") (PP (IN in) (NP (DT the) (NN ",8,")))) (. .)))"], [3, 4, 'might not be', 6, 7, 8, 9], [0, 1, 2, 3, 4, 5, 6, 7, 8, 'does not imply', 3, 4, 5, 6, 7, 8, 9], [4, "not", 8]))
         ]
 
