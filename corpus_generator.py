@@ -144,7 +144,8 @@ def generate_samples(output_path, num_sample_per_template, template_list):
                 example_dict[example_sents] = 1
                 pairID = "ex" + str(example_counter)
                 fo.write(label + "\t" + example[5] + "\t" + example[6] + "\t" + example[3] + "\t" + example[4] + "\t" + example[0] + \
-                        "\t" + example[1] + "\t" + pairID + "\t" + heuristic + "\t" + category + "\t" + example[2] + "\t" + low_q_expl + "\t" + high_q_expl + "\t" + ex_low_q_expl + "\n")
+                        "\t" + example[1] + "\t" + pairID + "\t" + heuristic + "\t" + category + "\t" + example[2] + "\t" + low_q_expl + \
+                        "\t" + high_q_expl + "\t" + ex_low_q_expl + "\n")
                 count_examples += 1
                 example_counter += 1
 
@@ -180,15 +181,19 @@ def main():
         template_list_train, template_list_test = template_train_test_split()
 
         train_output_path = "/data/rosa/hans-forked/randomness_experiment/train_set_24T_600_seed%d.txt" % i
-        test_output_path = "/data/rosa/hans-forked/randomness_experiment/test_set_6T_500_seed%d.txt" % i
+        matched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/matched_test_set_6T_500_seed%d.txt" % i
+        mismatched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/mismatched_test_set_6T_500_seed%d.txt" % i
 
         # training data
         sample_seen_words() # Randomly sample seen words for training data. Note: test use all words
         set_datasets_by_type("train")
         generate_samples(train_output_path, 600, template_list_train)
         # test data
-        set_datasets_by_type("test") 
-        generate_samples(test_output_path, 500, template_list_test)
+        set_datasets_by_type("test")
+        # matched 24 templates + use all words including unseen words
+        generate_samples(matched_test_output_path, 500, template_list_test)
+        # mismatched 6 templates + use all words including unseen words
+        generate_samples(mismatched_test_output_path, 500, template_list_test)
 
 
 if __name__=="__main__":
