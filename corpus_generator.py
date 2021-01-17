@@ -172,33 +172,57 @@ def template_train_test_split():
         
     return train_templates, test_templates
 
+def old_hans_vocab_stats():
+    nouns_sg = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete"]
+    transitive_verbs =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
+    intransitive_verbs =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed"]
+    adjs = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry"] # All at least 100 times in MNLI
+    advs = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully"] # All at least 100 times in MNLI
+    
+    print('hans old vocab stats:')
+    print("nouns_sg: ", len(nouns_sg))
+    print("transitive_verbs: ", len(transitive_verbs))
+    print("intransitive_verbs: ", len(intransitive_verbs))
+    print("adjs: ", len(adjs))
+    print("advs: ", len(advs))
+
+def current_hans_vocab_stats():
+    print('hans current vocab stats:')
+    print("nouns_sg_dev: ", len(nouns_sg_dev))
+    print("transitive_verbs_dev: ", len(transitive_verbs_dev))
+    print("intransitive_verbs_dev: ", len(intransitive_verbs_dev))
+    print("adjs_dev: ", len(adjs_dev))
+    print("advs_dev: ", len(advs_dev))
 
 def main():
-    random.seed(2021)
-    seeds = random.sample(range(1, 2021), 30)
-    print(seeds)
+    current_hans_vocab_stats()
+    old_hans_vocab_stats()
 
-    for i in range(30): 
-        print(i)
-        random.seed(seeds[i]) # setting seed here works for functions imported from templates too
+    # random.seed(2021)
+    # seeds = random.sample(range(1, 2021), 30)
+    # print(seeds)
 
-        # randomly sample train and test templates
-        template_list_train, template_list_test = template_train_test_split()
+    # for i in range(30): 
+    #     print(i)
+    #     random.seed(seeds[i]) # setting seed here works for functions imported from templates too
 
-        # train_output_path = "/data/rosa/hans-forked/randomness_experiment/train_set_24T_600_seed%d.txt" % i
-        matched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/matched_test_set_24T_500_seed%d.txt" % i
-        # mismatched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/mismatched_test_set_6T_500_seed%d.txt" % i
+    #     # randomly sample train and test templates
+    #     template_list_train, template_list_test = template_train_test_split()
 
-        # training data
-        # sample_seen_words() # Randomly sample seen words for training data. Note: test use all words
-        # set_datasets_by_type("train")
-        # generate_samples(train_output_path, 600, template_list_train)
-        # test data
-        set_datasets_by_type("dev")
-        # matched 24 templates + use all words including unseen words
-        generate_samples(matched_test_output_path, 500, template_list_train)
-        # mismatched 6 templates + use all words including unseen words
-        # generate_samples(mismatched_test_output_path, 500, template_list_test)
+    #     # train_output_path = "/data/rosa/hans-forked/randomness_experiment/train_set_24T_600_seed%d.txt" % i
+    #     matched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/matched_test_set_24T_500_seed%d.txt" % i
+    #     # mismatched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/mismatched_test_set_6T_500_seed%d.txt" % i
+
+    #     # training data
+    #     # sample_seen_words() # Randomly sample seen words for training data. Note: test use all words
+    #     # set_datasets_by_type("train")
+    #     # generate_samples(train_output_path, 600, template_list_train)
+    #     # test data
+    #     set_datasets_by_type("dev")
+    #     # matched 24 templates + use all words including unseen words
+    #     generate_samples(matched_test_output_path, 500, template_list_train)
+    #     # mismatched 6 templates + use all words including unseen words
+    #     # generate_samples(mismatched_test_output_path, 500, template_list_test)
 
 
 if __name__=="__main__":
