@@ -349,28 +349,28 @@ def postprocess(sentence):
 
     return sentence
 
-nouns_sg_dev = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
+nouns_sg_test = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
                 "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
                 "colorist", "curator", "dancer", "director", "strategist", "essayist", "planner", "stylist", "illustrator", "lyricist", \
                 "musician", "penciller", "photographer", "photojournalist", "potter", "sculptor", "singer", "writer", \
                 "chaplain", "analyst", "counselor", "nurse", "psychiatrist", "psychologist", "psychotherapist", "worker", "engineer", \
                 "technologist", "technician"]
-nouns_pl_dev = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
+nouns_pl_test = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
                 "designers", "animators", "architects", "administrators", "artisans", "therapists", "bakers", "artists", "officers", \
                 "colorists", "curators", "dancers", "directors", "strategists", "essayists", "planners", "stylists", "illustrators", "lyricists", \
                 "musicians", "pencillers", "photographers", "photojournalists", "potters", "sculptors", "singers", "writers", \
                 "chaplains", "analysts", "counselors", "nurses", "psychiatrists", "psychologists", "psychotherapists", "workers", "engineers", \
                 "technologists", "technicians"]
-nouns_dev = nouns_sg_dev + nouns_pl_dev
+nouns_test = nouns_sg_test + nouns_pl_test
 
 passive_verbs = ["recommended","called","helped","supported","contacted","believed","avoided","advised","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
 
-transitive_verbs_dev =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired", \
+transitive_verbs_test =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired", \
                          "addressed", "borrowed", "brought", "discussed", "raised", "offered", "wrote", "promised", "had"]
-intransitive_verbs_dev =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
+intransitive_verbs_test =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
                            "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "left", "lay", "listened", "panicked", "smiled", \
                            "talked", "worked", "yell"]
-verbs_dev = transitive_verbs_dev + intransitive_verbs_dev
+verbs_test = transitive_verbs_test + intransitive_verbs_test
 
 nps_verbs = ["believed", "knew", "heard"]
         #"forgot", "preferred", "claimed", "wanted", "needed", "found", "suggested", "expected"] # These all appear at least 100 times with both NP and S arguments 
@@ -391,13 +391,13 @@ location_nouns_b = ["museum", "school", "library", "office","laboratory"]
 won_objects = ["race", "contest", "war", "prize", "competition", "election", "battle", "award", "tournament"] 
 read_wrote_objects = ["book", "column", "report", "poem", "letter", "novel", "story", "play", "speech"]
 
-adjs_dev = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry", \
+adjs_test = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry", \
             "attractive", "agreeable", "angry", "thoughtless", "obedient", "muscular", "skinny", "silly", "gentle", "happy", "lazy", "nervous"] 
 
 adj_comp_nonent = ["afraid", "sure", "certain"]
 adj_comp_ent = ["sorry", "aware", "glad"]
 
-advs_dev = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
+advs_test = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
             "anxiously", "arrogantly", "awkwardly", "bashfully", "bitterly", "blindly", "blissfully", "boastfully", "boldly", "bravely", "briefly", "brightly", "briskly", \
             "broadly", "busily", "calmly", "carefully", "carelessly", "cautiously", "certainly", "cheerfully"] 
 
@@ -430,7 +430,7 @@ advs_outside_entailed = ["after", "before", "because", "although", "though", "si
 
 
 def set_datasets_by_type(data_type):
-    # data_type can be either "dev" or "train" 
+    # data_type can be either "test" or "train" 
     global nouns_sg
     global nouns_pl
     global nouns
@@ -471,17 +471,17 @@ def set_datasets_by_type(data_type):
     global const_advs_nonent_templates 
     global const_under_if_templates 
 
-    if data_type == "dev":
-        nouns_sg = nouns_sg_dev
-        nouns_pl = nouns_pl_dev
-        nouns = nouns_dev
+    if data_type == "test":
+        nouns_sg = nouns_sg_test
+        nouns_pl = nouns_pl_test
+        nouns = nouns_test
         
-        transitive_verbs = transitive_verbs_dev 
-        intransitive_verbs = intransitive_verbs_dev
-        verbs = verbs_dev 
+        transitive_verbs = transitive_verbs_test 
+        intransitive_verbs = intransitive_verbs_test
+        verbs = verbs_test 
         
-        advs = advs_dev
-        adjs = adjs_dev
+        advs = advs_test
+        adjs = adjs_test
     elif data_type == "train":
         nouns_sg = nouns_sg_train
         nouns_pl = nouns_pl_train
@@ -699,17 +699,17 @@ def sample_seen_words():
     global advs_train
     global adjs_train
 
-    nouns_sg_train = sample_first_half(nouns_sg_dev)
+    nouns_sg_train = sample_first_half(nouns_sg_test)
     nouns_pl_train = [elt+"s" for elt in nouns_sg_train] #add s to words in nouns_sg_train
-    transitive_verbs_train = sample_first_half(transitive_verbs_dev)
-    intransitive_verbs_train = sample_first_half(intransitive_verbs_dev)
-    advs_train = sample_first_half(advs_dev)
-    adjs_train = sample_first_half(adjs_dev)
+    transitive_verbs_train = sample_first_half(transitive_verbs_test)
+    intransitive_verbs_train = sample_first_half(intransitive_verbs_test)
+    advs_train = sample_first_half(advs_test)
+    adjs_train = sample_first_half(adjs_test)
 
     nouns_train = nouns_sg_train + nouns_pl_train
     verbs_train = transitive_verbs_train + intransitive_verbs_train
 
     # print('nouns_train: ', nouns_train)
-    # print('set difference: ', set(nouns_sg_dev) - set(nouns_train))
+    # print('set difference: ', set(nouns_sg_test) - set(nouns_train))
 
 

@@ -188,11 +188,11 @@ def old_hans_vocab_stats():
 
 def current_hans_vocab_stats():
     print('hans current vocab stats:')
-    print("nouns_sg_dev: ", len(nouns_sg_dev))
-    print("transitive_verbs_dev: ", len(transitive_verbs_dev))
-    print("intransitive_verbs_dev: ", len(intransitive_verbs_dev))
-    print("adjs_dev: ", len(adjs_dev))
-    print("advs_dev: ", len(advs_dev))
+    print("nouns_sg_test: ", len(nouns_sg_test))
+    print("transitive_verbs_test: ", len(transitive_verbs_test))
+    print("intransitive_verbs_test: ", len(intransitive_verbs_test))
+    print("adjs_test: ", len(adjs_test))
+    print("advs_test: ", len(advs_test))
 
 def main():
     # current_hans_vocab_stats()
@@ -232,7 +232,7 @@ def main():
         generate_samples(train_output_path, 600, template_list_train)
 
         # test data
-        set_datasets_by_type("dev")
+        set_datasets_by_type("test")
         # match vocab + match 24 template
         generate_samples(mvmt_test_output_path, 500, template_list_train)
         # mismatch vocab + match 24 template
