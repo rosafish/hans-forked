@@ -364,14 +364,15 @@ nouns_pl_test = ["professors", "students", "presidents","judges","senators","sec
                 "technologists", "technicians"]
 nouns_test = nouns_sg_test + nouns_pl_test
 
-transitive_verbs_test =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked", \
+transitive_verbs_test =  ["recommended", "called", "helped","supported","contacted","avoided","advised","saw","introduced","mentioned","encouraged","thanked", \
                           "recognized","admired", "addressed", "needed", "brought", "disturbed", "deceived", "offended", "affected", "found", "expected"]
 intransitive_verbs_test =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
-                           "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "left", "lay", "listened", "panicked", "smiled", \
+                           "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "lay", "listened", "panicked", "smiled", \
                            "talked", "worked", "yell"]
 verbs_test = transitive_verbs_test + intransitive_verbs_test
 
-#TODO: figure out these verbs
+# Note: The following verbs will always be in both train and test. They overlap with verbs_test in only 3 verbs: "believed", "stopped", "left".
+# Therefore, I will make sure those three verbs are always in the training vocab instead of testing.
 nps_verbs = ["believed", "knew", "heard"]
         #"forgot", "preferred", "claimed", "wanted", "needed", "found", "suggested", "expected"] # These all appear at least 100 times with both NP and S arguments 
 npz_verbs = ["hid", "moved", "presented", "paid","studied","stopped"] 
@@ -709,6 +710,12 @@ def sample_seen_words():
     adjs_train = sample_first_half(adjs_test)
 
     nouns_train = nouns_sg_train + nouns_pl_train
+
+    # make transitive "believed", transitive "stopped", intransitive "left" to be always in training vocab
+    transitive_verbs_train.append("believed")
+    transitive_verbs_train.append("stopped")
+    intransitive_verbs_train.append("left")
+
     verbs_train = transitive_verbs_train + intransitive_verbs_train
 
     # print('nouns_train: ', nouns_train)

@@ -189,8 +189,8 @@ def old_hans_vocab_stats():
 def current_hans_vocab_stats():
     print('hans current vocab stats:')
     print("nouns_sg_test: ", len(nouns_sg_test))
-    print("transitive_verbs_test: ", len(transitive_verbs_test))
-    print("intransitive_verbs_test: ", len(intransitive_verbs_test))
+    print("transitive_verbs_test: ", len(transitive_verbs_test)+2) # "believed", "stopped"
+    print("intransitive_verbs_test: ", len(intransitive_verbs_test)+1) # "left"
     print("adjs_test: ", len(adjs_test))
     print("advs_test: ", len(advs_test))
 
