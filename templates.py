@@ -20,6 +20,15 @@ verbs_train = []
 advs_train = []
 adjs_train = []
 
+nouns_sg_test = []
+nouns_pl_test = []
+nouns_test = []
+transitive_verbs_test = []
+intransitive_verbs_test = []
+verbs_test = []
+advs_test = []
+adjs_test = []
+
 lex_cross_pp_ent_templates = None
 lex_cross_rc_ent_templates = None
 lex_ent_conj_templates = None
@@ -350,28 +359,28 @@ def postprocess(sentence):
 
     return sentence
 
-nouns_sg_test = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
+nouns_sg_all = ["professor", "student", "president","judge","senator","secretary","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
                 "designer", "animator", "architect", "administrator", "artisan", "therapist", "baker", "artist", "officer", \
                 "colorist", "curator", "dancer", "director", "strategist", "essayist", "planner", "stylist", "illustrator", "lyricist", \
                 "musician", "penciller", "photographer", "photojournalist", "potter", "sculptor", "singer", "writer", \
                 "chaplain", "analyst", "counselor", "nurse", "psychiatrist", "psychologist", "psychotherapist", "worker", "engineer", \
                 "technologist", "technician"]
-nouns_pl_test = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
+nouns_pl_all = ["professors", "students", "presidents","judges","senators","secretaries","doctors","lawyers","scientists","bankers","tourists","managers","artists","authors","actors","athletes", \
                 "designers", "animators", "architects", "administrators", "artisans", "therapists", "bakers", "artists", "officers", \
                 "colorists", "curators", "dancers", "directors", "strategists", "essayists", "planners", "stylists", "illustrators", "lyricists", \
                 "musicians", "pencillers", "photographers", "photojournalists", "potters", "sculptors", "singers", "writers", \
                 "chaplains", "analysts", "counselors", "nurses", "psychiatrists", "psychologists", "psychotherapists", "workers", "engineers", \
                 "technologists", "technicians"]
-nouns_test = nouns_sg_test + nouns_pl_test
+nouns_all = nouns_sg_all + nouns_pl_all
 
-transitive_verbs_test =  ["recommended", "called", "helped","supported","contacted","avoided","advised","saw","introduced","mentioned","encouraged","thanked", \
+transitive_verbs_all =  ["recommended", "called", "helped","supported","contacted","avoided","advised","saw","introduced","mentioned","encouraged","thanked", \
                           "recognized","admired", "addressed", "needed", "brought", "disturbed", "deceived", "offended", "affected", "found", "expected"]
-intransitive_verbs_test =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
+intransitive_verbs_all =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
                            "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "lay", "listened", "panicked", "smiled", \
                            "talked", "worked", "yell"]
-verbs_test = transitive_verbs_test + intransitive_verbs_test
+verbs_all = transitive_verbs_all + intransitive_verbs_all
 
-# Note: The following verbs will always be in both train and test. They overlap with verbs_test in only 3 verbs: "believed", "stopped", "left".
+# Note: The following verbs will always be in both train and test. They overlap with verbs_all in only 3 verbs: "believed", "stopped", "left".
 # Therefore, I will make sure those three verbs are always in the training vocab instead of testing.
 nps_verbs = ["believed", "knew", "heard"]
         #"forgot", "preferred", "claimed", "wanted", "needed", "found", "suggested", "expected"] # These all appear at least 100 times with both NP and S arguments 
@@ -392,13 +401,13 @@ location_nouns_b = ["museum", "school", "library", "office","laboratory"]
 won_objects = ["race", "contest", "war", "prize", "competition", "election", "battle", "award", "tournament"] 
 read_wrote_objects = ["book", "column", "report", "poem", "letter", "novel", "story", "play", "speech"]
 
-adjs_test = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry", \
+adjs_all = ["important", "popular", "famous", "young", "happy", "helpful", "serious", "angry", \
             "attractive", "agreeable", "angry", "thoughtless", "obedient", "muscular", "skinny", "silly", "gentle", "happy", "lazy", "nervous"] 
 
 adj_comp_nonent = ["afraid", "sure", "certain"]
 adj_comp_ent = ["sorry", "aware", "glad"]
 
-advs_test = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
+advs_all = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
             "anxiously", "arrogantly", "awkwardly", "bashfully", "bitterly", "blindly", "blissfully", "boastfully", "boldly", "bravely", "briefly", "brightly", "briskly", \
             "broadly", "busily", "calmly", "carefully", "carelessly", "cautiously", "certainly", "cheerfully"] 
 
@@ -686,13 +695,13 @@ def set_datasets_by_type(data_type):
             ]
 
 
-def sample_first_half(alist):
+def split_in_half(alist):
     random.shuffle(alist)
     desired_length = int(len(alist)/2)
-    return alist[:desired_length]
+    return alist[:desired_length], alist[desired_length:]
 
 
-def sample_seen_words():
+def split_seen_words():
     global nouns_sg_train
     global nouns_pl_train
     global nouns_train
@@ -702,14 +711,27 @@ def sample_seen_words():
     global advs_train
     global adjs_train
 
-    nouns_sg_train = sample_first_half(nouns_sg_test)
+    global nouns_sg_test
+    global nouns_pl_test
+    global nouns_test
+    global transitive_verbs_test
+    global intransitive_verbs_test
+    global verbs_test
+    global advs_test
+    global adjs_test
+
+    nouns_sg_train, nouns_sg_test = split_in_half(nouns_sg_all)
     nouns_pl_train = [elt+"s" for elt in nouns_sg_train] #add s to words in nouns_sg_train
-    transitive_verbs_train = sample_first_half(transitive_verbs_test)
-    intransitive_verbs_train = sample_first_half(intransitive_verbs_test)
-    advs_train = sample_first_half(advs_test)
-    adjs_train = sample_first_half(adjs_test)
+    nouns_pl_test = [elt+"s" for elt in nouns_sg_test] #add s to words in nouns_sg_test
+
+    transitive_verbs_train, transitive_verbs_test = split_in_half(transitive_verbs_all)
+    intransitive_verbs_train, intransitive_verbs_test = split_in_half(intransitive_verbs_all)
+
+    advs_train, advs_test = split_in_half(advs_all)
+    adjs_train, adjs_test = split_in_half(adjs_all)
 
     nouns_train = nouns_sg_train + nouns_pl_train
+    nouns_test = nouns_sg_test + nouns_pl_test
 
     # make transitive "believed", transitive "stopped", intransitive "left" to be always in training vocab
     transitive_verbs_train.append("believed")
@@ -717,8 +739,17 @@ def sample_seen_words():
     intransitive_verbs_train.append("left")
 
     verbs_train = transitive_verbs_train + intransitive_verbs_train
+    verbs_test = transitive_verbs_test + intransitive_verbs_test
 
-    # print('nouns_train: ', nouns_train)
-    # print('set difference: ', set(nouns_sg_test) - set(nouns_train))
+    print('nouns_train: ', nouns_train)
+    print('nouns_test: ', nouns_test)
+    print('set difference between all single nouns and train nouns: ', set(nouns_sg_all) - set(nouns_train))
+    print('verbs_train: ', verbs_train)
+    print('verbs_test: ', verbs_test)
+    print('set difference between all transitive verbs and train verbs: ', set(transitive_verbs_all) - set(verbs_train))
+    print('adjs_train: ', adjs_train)
+    print('adjs_test: ', adjs_test)
+    print('advs_train: ', advs_train)
+    print('advs_test: ', advs_test)
 
 

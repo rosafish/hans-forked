@@ -224,22 +224,19 @@ def main():
         # mismatch vocab + mismatch 6 template
         misvmist_test_output_path = "/data/rosa/hans-forked/randomness_experiment/misvmist_test_set_6T_500_seed%d.txt" % i
 
-        #TODO: figure out how to set vocab for train and test separately in generation
-        # note: 50% 50% split
-
         # training data
-        sample_seen_words() # Randomly sample seen words for training data. Note: test use all words #TODO: use split rather than subset!!!
+        split_seen_words() # Randomly split seen words for training data. Note: test use the unseen words 
         set_datasets_by_type("train")
         generate_samples(train_output_path, 600, template_list_train)
+        # match vocab + match 24 template
+        generate_samples(mvmt_test_output_path, 500, template_list_train)
+        # match vocab + mismatch 6 template
+        generate_samples(mvmist_test_output_path, 500, template_list_test)
 
         # test data
         set_datasets_by_type("test")
-        # match vocab + match 24 template
-        generate_samples(mvmt_test_output_path, 500, template_list_train)
         # mismatch vocab + match 24 template
         generate_samples(misvmt_test_output_path, 500, template_list_train)
-        # match vocab + mismatch 6 template
-        generate_samples(mvmist_test_output_path, 500, template_list_test)
         # mismatch vocab + mismatch 6 template
         generate_samples(misvmist_test_output_path, 500, template_list_test)
 
