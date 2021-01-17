@@ -225,6 +225,7 @@ def main():
         misvmist_test_output_path = "/data/rosa/hans-forked/randomness_experiment/misvmist_test_set_6T_500_seed%d.txt" % i
 
         #TODO: figure out how to set vocab for train and test separately in generation
+        # note: 50% 50% split
 
         # training data
         sample_seen_words() # Randomly sample seen words for training data. Note: test use all words #TODO: use split rather than subset!!!

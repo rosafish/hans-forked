@@ -7,6 +7,7 @@ nouns = []
 transitive_verbs = [] 
 intransitive_verbs = []
 verbs = [] 
+passive_verbs = [] 
 advs = []
 adjs = []
 
@@ -363,15 +364,14 @@ nouns_pl_test = ["professors", "students", "presidents","judges","senators","sec
                 "technologists", "technicians"]
 nouns_test = nouns_sg_test + nouns_pl_test
 
-passive_verbs = ["recommended","called","helped","supported","contacted","believed","avoided","advised","stopped","introduced","mentioned","encouraged","thanked","recognized","admired"]
-
-transitive_verbs_test =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked","recognized","admired", \
-                         "addressed", "borrowed", "brought", "discussed", "raised", "offered", "wrote", "promised", "had"]
+transitive_verbs_test =  ["recommended", "called", "helped","supported","contacted","believed","avoided","advised","saw","stopped","introduced","mentioned","encouraged","thanked", \
+                          "recognized","admired", "addressed", "needed", "brought", "disturbed", "deceived", "offended", "affected", "found", "expected"]
 intransitive_verbs_test =  ["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
                            "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "left", "lay", "listened", "panicked", "smiled", \
                            "talked", "worked", "yell"]
 verbs_test = transitive_verbs_test + intransitive_verbs_test
 
+#TODO: figure out these verbs
 nps_verbs = ["believed", "knew", "heard"]
         #"forgot", "preferred", "claimed", "wanted", "needed", "found", "suggested", "expected"] # These all appear at least 100 times with both NP and S arguments 
 npz_verbs = ["hid", "moved", "presented", "paid","studied","stopped"] 
@@ -479,6 +479,7 @@ def set_datasets_by_type(data_type):
         transitive_verbs = transitive_verbs_test 
         intransitive_verbs = intransitive_verbs_test
         verbs = verbs_test 
+        passive_verbs = transitive_verbs
         
         advs = advs_test
         adjs = adjs_test
@@ -490,6 +491,7 @@ def set_datasets_by_type(data_type):
         transitive_verbs = transitive_verbs_train
         intransitive_verbs = intransitive_verbs_train
         verbs = verbs_train
+        passive_verbs = transitive_verbs
 
         advs = advs_train
         adjs = adjs_train
