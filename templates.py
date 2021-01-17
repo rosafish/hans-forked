@@ -493,6 +493,8 @@ def set_datasets_by_type(data_type):
 
         advs = advs_train
         adjs = adjs_train
+    else:
+        print("Wrong data type!")
 
     global object_dict
     object_dict["paid"] = nouns

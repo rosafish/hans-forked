@@ -195,34 +195,52 @@ def current_hans_vocab_stats():
     print("advs_dev: ", len(advs_dev))
 
 def main():
-    current_hans_vocab_stats()
-    old_hans_vocab_stats()
+    # current_hans_vocab_stats()
+    # old_hans_vocab_stats()
 
-    # random.seed(2021)
-    # seeds = random.sample(range(1, 2021), 30)
-    # print(seeds)
+    num_seeds = 2
 
-    # for i in range(30): 
-    #     print(i)
-    #     random.seed(seeds[i]) # setting seed here works for functions imported from templates too
+    random.seed(2021)
+    seeds = random.sample(range(1, 2021), num_seeds)
+    print(seeds)
 
-    #     # randomly sample train and test templates
-    #     template_list_train, template_list_test = template_train_test_split()
+    for i in range(num_seeds): 
+        print(i)
+        random.seed(seeds[i]) # setting seed here works for functions imported from templates too
 
-    #     # train_output_path = "/data/rosa/hans-forked/randomness_experiment/train_set_24T_600_seed%d.txt" % i
-    #     matched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/matched_test_set_24T_500_seed%d.txt" % i
-    #     # mismatched_test_output_path = "/data/rosa/hans-forked/randomness_experiment/mismatched_test_set_6T_500_seed%d.txt" % i
+        # randomly sample train and test templates
+        template_list_train, template_list_test = template_train_test_split()
 
-    #     # training data
-    #     # sample_seen_words() # Randomly sample seen words for training data. Note: test use all words
-    #     # set_datasets_by_type("train")
-    #     # generate_samples(train_output_path, 600, template_list_train)
-    #     # test data
-    #     set_datasets_by_type("dev")
-    #     # matched 24 templates + use all words including unseen words
-    #     generate_samples(matched_test_output_path, 500, template_list_train)
-    #     # mismatched 6 templates + use all words including unseen words
-    #     # generate_samples(mismatched_test_output_path, 500, template_list_test)
+        train_output_path = "/data/rosa/hans-forked/randomness_experiment/train_set_24T_600_seed%d.txt" % i
+        # match vocab + match 24 template
+        mvmt_test_output_path = "/data/rosa/hans-forked/randomness_experiment/mvmt_test_set_24T_500_seed%d.txt" % i
+       
+        # mismatch vocab + match 24 template
+        misvmt_test_output_path = "/data/rosa/hans-forked/randomness_experiment/misvmt_test_set_24T_500_seed%d.txt" % i
+
+         # match vocab + mismatch 6 template
+        mvmist_test_output_path = "/data/rosa/hans-forked/randomness_experiment/mvmist_test_set_6T_500_seed%d.txt" % i
+
+        # mismatch vocab + mismatch 6 template
+        misvmist_test_output_path = "/data/rosa/hans-forked/randomness_experiment/misvmist_test_set_6T_500_seed%d.txt" % i
+
+        #TODO: figure out how to set vocab for train and test separately in generation
+
+        # training data
+        sample_seen_words() # Randomly sample seen words for training data. Note: test use all words #TODO: use split rather than subset!!!
+        set_datasets_by_type("train")
+        generate_samples(train_output_path, 600, template_list_train)
+
+        # test data
+        set_datasets_by_type("dev")
+        # match vocab + match 24 template
+        generate_samples(mvmt_test_output_path, 500, template_list_train)
+        # mismatch vocab + match 24 template
+        generate_samples(misvmt_test_output_path, 500, template_list_train)
+        # match vocab + mismatch 6 template
+        generate_samples(mvmist_test_output_path, 500, template_list_test)
+        # mismatch vocab + mismatch 6 template
+        generate_samples(misvmist_test_output_path, 500, template_list_test)
 
 
 if __name__=="__main__":
