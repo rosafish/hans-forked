@@ -174,9 +174,13 @@ def template_train_test_split():
 
 
 def main():
+    random.seed(2021)
+    seeds = random.sample(range(1, 2021), 30)
+    print(seeds)
+
     for i in range(30): 
         print(i)
-        random.seed(i) # setting seed here works for functions imported from templates too
+        random.seed(seeds[i]) # setting seed here works for functions imported from templates too
 
         # randomly sample train and test templates
         template_list_train, template_list_test = template_train_test_split()
