@@ -198,7 +198,7 @@ def main():
     # current_hans_vocab_stats()
     # old_hans_vocab_stats()
 
-    num_seeds = 2
+    num_seeds = 30
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
@@ -210,6 +210,8 @@ def main():
 
         # randomly sample train and test templates
         template_list_train, template_list_test = template_train_test_split()
+        print('template_list_train: ', len(template_list_train))
+        print('template_list_test: ', len(template_list_test))
 
         train_output_path = "/data/rosa/hans-forked/randomness_experiment/train_set_24T_600_seed%d.txt" % i
         # match vocab + match 24 template

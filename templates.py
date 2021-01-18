@@ -741,15 +741,15 @@ def split_seen_words():
     verbs_train = transitive_verbs_train + intransitive_verbs_train
     verbs_test = transitive_verbs_test + intransitive_verbs_test
 
-    print('nouns_train: ', nouns_train)
-    print('nouns_test: ', nouns_test)
-    print('set difference between all single nouns and train nouns: ', set(nouns_sg_all) - set(nouns_train))
-    print('verbs_train: ', verbs_train)
-    print('verbs_test: ', verbs_test)
-    print('set difference between all transitive verbs and train verbs: ', set(transitive_verbs_all) - set(verbs_train))
-    print('adjs_train: ', adjs_train)
-    print('adjs_test: ', adjs_test)
-    print('advs_train: ', advs_train)
-    print('advs_test: ', advs_test)
+    # print('nouns_train: ', nouns_train)
+    # print('nouns_test: ', nouns_test)
+    # print('set difference between all single nouns and train nouns: ', set(nouns_sg_all) - set(nouns_train))
+    # print('verbs_train: ', verbs_train)
+    # print('verbs_test: ', verbs_test)
+    # print('set difference between all transitive verbs and train verbs: ', set(transitive_verbs_all) - set(verbs_train))
+    # print('adjs_train: ', adjs_train)
+    # print('adjs_test: ', adjs_test)
+    # print('advs_train: ', advs_train)
+    # print('advs_test: ', advs_test)
 
 
