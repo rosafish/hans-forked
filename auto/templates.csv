@@ -1,0 +1,43 @@
+id, heuristic, template, subtemplate_id, label, premise, hypothesis, high_quality, low_quality, extreme_low_quality, natural_language, var_list
+0, lexical_overlap, le_around_prepositional_phrase, 0, entailment, The N1 P1 the N2 Vt1 the N3., The N1 Vt1 the N3., The N1 P1 the N2 N1_Be1 the N1., The N1 P1 the N2 N1_Be1 the N1., N1 P1 N2 N1_Be1 N1, The N1 P1 the N2 N1_Be1 the N1.,"['N1', 'N2', 'N3', 'Vt1', 'P1', 'N1_Be1']" 
+1, subsequence, se_Adjective, 0, entailment, Adj1 Np1 Vi1., Np1 Vi1., Adj1 Np1 Vi1 implies the Np1 Vi1., Adj1 Np1 are Np1., Adj1 Np1, Adj1 Np1 are Np1.,"['Adj1', 'Np1', 'Vi1']"
+2, subsequence, se_Adjective, 1, entailment, Adj1 Np1 Vt1 the N2., Np1 Vt1 the N2., Adj1 Np1 Vt1 the N2 implies the Np1 Vt1 the N2., Adj1 Np1 are Np1., Adj1 Np1, Adj1 Np1 are Np1.,"['Adj1', 'Np1', 'Vt1', 'N2']"
+3, lexical_overlap, le_around_relative_clause, 0, entailment, The N1 RELS Vi1 Vt2 the N2., The N1 Vt2 the N2., The N1 RELS Vi1 N1_Be1 the N1., The N1 RELS Vi1 N1_Be1 the N1., N1 RELS V1, The N1 RELS Vi1 N1_Be1 the N1.,"['N1', 'RELS', 'Vi1', 'Vt2', 'N2', 'N1_Be1']" 
+4, lexical_overlap, le_around_relative_clause, 1, entailment, The N1 RELS the N2 Vt1 Vt2 the N3., The N1 Vt2 the N3., The N1 RELS the N2 Vt1 N1_Be1 the N1., The N1 RELS the N2 Vt1 N1_Be1 the N1., N1 RELS the N2 Vt1, The N1 RELS the N2 Vt1 N1_Be1 the N1.,"['N1', 'RELS', 'Vt1', 'Vt2', 'N2', 'N3', 'N1_Be1']"
+5, lexical_overlap, le_around_relative_clause, 2, entailment, The N1 RELS Vt1 the N2 Vt2 the N3., The N1 Vt2 the N3., The N1 RELS Vt1 the N2 N1_Be1 the N1., The N1 RELS Vt1 the N2 N1_Be1 the N1., N1 RELS Vt1 the N2, The N1 RELS Vt1 the N2 N1_Be1 the N1.,"['N1', 'RELS', 'Vt1', 'Vt2', 'N2', 'N3', 'N1_Be1']"
+6, lexical_overlap, le_conjunction, 0, entailment, The N1 and the N2 Vt1 the N3., The N1 Vt1 the N3., The N1 and the N2 Vt1 the N3 implies the N1 Vt1 the N3., The N1 N1_Be1 part of the N1 and the N2., N1 N1 and N2, The N1 N1_Be1 part of the N1 and the N2.,"['N1', 'Vt1', 'N2', 'N3', 'N1_Be1']"
+7, lexical_overlap, le_conjunction, 1, entailment, The N1 Vt1 the N2 and the N3., The N1 Vt1 the N3., The N1 Vt1 the N2 and the N3 implies the N1 Vt1 the N3., The N3 N3_Be1 part of the N2 and the N3., N3 N2 and N3, The N3 N3_Be1 part of the N2 and the N3.,"['N1', 'Vt1', 'N2', 'N3', 'N3_Be1']"
+8, lexical_overlap, le_passive, 0, entailment, The Ns1 was Vt1 by the N2, The N2 Vt1 the Ns1., The Ns1 was Vt1 by the N2 is the same as the N2 Vt1 the Ns1., The Ns1 was Vt1 by the N2 is the same as the N2 Vt1 the Ns1., Ns1 was Vt1 N2 N2 Vt1 Ns1, The Ns1 was Vt1 by the N2 is the same as the N2 Vt1 the Ns1.,"['Ns1', 'Vt1', 'N2']"
+9, lexical_overlap, le_passive, 1, entailment, The Np1 were Vt1 by the N2, The N2 Vt1 the Np1., The Np1 were Vt1 by the N2 is the same as the N2 Vt1 the Np1., The Np1 were Vt1 by the N2 is the same as the N2 Vt1 the Np1., Np1 were Vt1 N2 N2 Vt1 Np1, The Np1 were Vt1 by the N2 is the same as the N2 Vt1 the Np1.,"['Np1', 'Vt1', 'N2']"
+10, lexical_overlap, le_relative_clause, 0, entailment, The N1 RELS the N2 Vt1 Vt2 the N3.,The N2 Vt1 the N1.,The N2 Vt1 the N1 RELS the N2 Vt1., The N1 RELS the N2 Vt1 implies the N2 Vt1 the N1., N2 Vt1 N1, The N1 RELS the N2 Vt1 implies the N2 Vt1 the N1.,"['N1', 'Vt1', 'N2', 'Vt2', 'N3', 'RELS']" 
+11, lexical_overlap, le_relative_clause, 1, entailment, The N1 RELS Vt1 the N2 Vt2 the N3., The N1 Vt1 the N2., The N1 RELS Vt1 the N2 Vt1 the N2., The N1 RELS Vt1 the N2 implies the N1 Vt1 the N2., N1 Vt1 N2, The N1 RELS Vt1 the N2 implies the N1 Vt1 the N2.,"['N1', 'Vt1', 'N2', 'RELS', 'N3']"
+12, lexical_overlap, le_relative_clause, 2, entailment, The N1 Vt1 the N2 RELS Vt2 the N3., The N2 Vt2 the N3., The N2 RELS Vt2 the N3 Vt2 the N3., The N2 RELS Vt2 the N3 implies the N2 Vt2 the N3., N2 Vt2 N3, The N2 RELS Vt2 the N3 implies the N2 Vt2 the N3.,"['N1', 'Vt1', 'Vt2', 'N2', 'RELS', 'N3']"
+13, lexical_overlap, le_relative_clause, 3, entailment, The N1 Vt1 the N2 RELS the N3 Vt2., The N3 Vt2 the N2., The N3 Vt2 the N2 RELS the N3 V2., The N2 RELS the N3 Vt2 implies the N3 Vt2 the N2., N3 Vt2 N2, The N2 RELS the N3 Vt2 implies the N3 Vt2 the N2.,"['N1', 'Vt1', 'Vt2', 'N2', 'RELS', 'N3']"
+14, lexical_overlap, ln_preposition, 0, neutral, The N1 P1 the N2 Vt1 the N3., The N2 Vt1 the N1., The N1 P1 the N2 does not imply the N2 Vt1 the N1., The N1 Vt1 the N3., N1 Vt1 N3, The N1 Vt1 the N3.,"['N1', 'N2', 'N3', 'Vt1', 'P1']"
+15, lexical_overlap, ln_preposition, 1, neutral, The N1 P1 the N2 Vt1 the N3., The N3 Vt1 the N1., The N1 Vt1 the N3 does not imply the N3 Vt1 the N1., The N1 Vt1 the N3., N1 Vt1 N3, The N1 Vt1 the N3.,"['N1', 'N2', 'N3', 'Vt1', 'P1']"
+16, lexical_overlap, ln_preposition, 2, neutral, The N1 P1 the N2 Vt1 the N3., The N3 Vt1 the N2., Just because the N1 P1 the N2 Vt1 the N3 does not mean the N3 Vt1 the N2., The N1 Vt1 the N3., N1 Vt1 N3, The N1 Vt1 the N3.,"['N1', 'N2', 'N3', 'Vt1', 'P1']"
+17, lexical_overlap, ln_preposition, 3, neutral, The N1 Vt1 the N2 P1 the N3., The N2 Vt1 the N1., The N1 Vt1 the N2 is not the same as the N2 Vt1 the N1., The N1 Vt1 the N2., N1 Vt1 N2, The N1 Vt1 the N2.,"['N1', 'N2', 'N3', 'Vt1', 'P1']"
+18, lexical_overlap, ln_preposition, 4, neutral, The N1 Vt1 the N2 P1 the N3., The N2 Vt1 the N3., The N2 P1 the N3 does not imply the N2 Vt1 the N3., The N1 N1_Be1 not the N2 and the N2 N2_Be2 not the N3.,"['N1', 'N2', 'N3', 'Vt1', 'P1', 'N1_Be1', 'N2_Be2']"
+19, lexical_overlap, ln_preposition, 5, neutral, The N1 Vt1 the N2 P1 the N3., The N3 Vt1 the N1., The N1 Vt1 the N2 P1 the N3 does not imply the N3 Vt1 the N1., The N1 N1_Be1 not the N3 and the N2 N2_Be1 not the N1., N1 not N3, The N1 N1_Be1 not the N3 and the N2 N2_Be1 not the N1.,"['N1', 'N2', 'N3', 'Vt1', 'P1', 'N1_Be1', 'N2_Be2']"
+20, lexical_overlap, ln_relative_clause, 0, neutral, The N1 RELS the N2 Vt1 Vt2 the N3., The N2 Vt2 the N1., The N2 Vt1 the N1 and the N1 Vt2 the N3., 
+21, lexical_overlap, ln_relative_clause, 1, neutral, The N1 RELS the N2 Vt1 Vt2 the N3., The N3 Vt2 the N1., The N1 Vt2 the N3 does not imply the N3 Vt2 the N1., 
+22, lexical_overlap, ln_relative_clause, 2, neutral, The N1 RELS the N2 Vt1 Vt2 the N3., The N3 Vt1 the N2.,
+23, lexical_overlap, ln_relative_clause, 3, neutral, The N1 RELS Vt1 the N2 Vt2 the N3., The N2 Vt2 the N1.,
+24, lexical_overlap, ln_relative_clause, 4, neutral, The N1 RELS Vt1 the N2 Vt2 the N3., The N3 Vt2 the N1.,
+25, lexical_overlap, ln_relative_clause, 5, neutral, The N1 RELS Vt1 the N2 Vt2 the N3., The N3 Vt2 the N2.,
+26, lexical_overlap, ln_relative_clause, 6, neutral, The N1 Vt1 the N2 RELS Vt2 the N3., The N2 Vt1 the N1.,
+27, lexical_overlap, ln_relative_clause, 7, neutral, The N1 Vt1 the N2 RELS Vt2 the N3., The N2 Vt1 the N3.,
+28, lexical_overlap, ln_relative_clause, 8, neutral, The N1 Vt1 the N2 RELS Vt2 the N3., The N3 Vt1 the N1.,
+29, lexical_overlap, ln_relative_clause, 9, neutral, The N1 Vt1 the N2 RELS the N3 Vt2., The N2 Vt1 the N1., 
+30, lexical_overlap, ln_relative_clause, 10, neutral, The N1 Vt1 the N2 RELS the N3 Vt2., The N2 Vt1 the N3., 
+31, lexical_overlap, ln_relative_clause, 11, neutral, The N1 Vt1 the N2 RELS the N3 Vt2., The N3 Vt1 the N1.,
+
+32, lexical_overlap, ln_passive, 0, contradiction,
+33, lexical_overlap, ln_passive, 1, contradiction,
+
+34, lexical_overlap, ln_conjunction, 0, contradiction,
+35, lexical_overlap, ln_conjunction, 1, contradiction,
+36, lexical_overlap, ln_conjunction, 2, contradiction,
+37, lexical_overlap, ln_conjunction, 3, contradiction,
+
+38, lexical_overlap, ln_subject/object_swap, 0, contradiction,
