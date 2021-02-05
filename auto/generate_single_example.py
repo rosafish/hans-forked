@@ -34,6 +34,7 @@ class Template:
         self.id=csv_id # id in templates.csv, used for debugging purpose only
         self.heuristic=heuristic 
         self.template=template
+        print('template: ', template)
         self.subtemplate_id=subtemplate_id
         self.label=label
         self.premise=premise
@@ -60,7 +61,7 @@ class Template:
         
         for variable in self.variable_dict.values():
             value=None
-            if variable.type=='Be':
+            if variable.type in ['Be', 'O']:
                 continue
             if variable.type in ['V', 'N']:
                 have_value=False
@@ -78,13 +79,14 @@ class Template:
                 # print('variable.name: ', variable.name)
                 # print('value: ', value)
                 sampled_dict[variable.type].add(have_value)
+            
             else:
-                # print("not N, V, Be")
-                # print(variable.name)
-                # print(variable.type)
-                # print(variable.subtype)
-                # print('variable.name: ', variable.name)
-                # print('variable.type: ', variable.type)
+                print("not N, V, Be")
+                print(variable.name)
+                print(variable.type)
+                print(variable.subtype)
+                print('variable.name: ', variable.name)
+                print('variable.type: ', variable.type)
                 value = random.sample(var_of_string[variable.type],1)[0]
             variable.set_value(value)
             # print('variable.name: ', variable.name)
@@ -106,6 +108,16 @@ class Template:
                                 variable.set_value('are')
                             else:
                                 variable.set_value('is')
+            elif variable.type=="O":
+                association = variable.association
+                for v in self.variable_dict.values():
+                    # print('v.name: ', v.name)
+                    # print('association: ', association)
+                    if v.name == association:
+                        dictionary = var_of_string[v.subtype+'O']
+                        O_list = dictionary[v.value]
+                        value = random.sample(O_list,1)[0]
+                        variable.set_value(value)
                 
     def generate_examples(self):
         """ fill word in for the examples and output for p, h, and different expls """
@@ -187,6 +199,8 @@ def parse_variable(var):
         for k, v in var_type_subtypes.items(): 
             if var_subtype in v:
                 var_type = k
+        if var_type==None:
+            var_subtype=None
     # print('var_type: ', var_type)
     # print('var_subtype: ', var_subtype)
     return var_name, var_index, var_type, var_subtype, var_association

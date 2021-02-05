@@ -5,6 +5,8 @@ var_type_subtypes={
     "Adv": [],
     "Be": [],
     "P": [],
+    "Rels": [],
+    "O": [],
 }
 
 Ns=["professor", "student", "president","judge","senator","programmer","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
@@ -37,6 +39,8 @@ Adv = ["quickly", "slowly", "happily", "easily", "quietly", "thoughtfully", \
        "anxiously", "arrogantly", "awkwardly", "bashfully", "bitterly", "blindly", "blissfully", "boastfully", "boldly", "bravely", "briefly", "brightly", "briskly", \
        "broadly", "busily", "calmly", "carefully", "carelessly", "cautiously", "certainly", "cheerfully"]
 
+Rels = ["that", "who"]
+
 Vunderstand = ["paid", "explored", "won", "wrote", "left", "read", "ate"]
 called_objects = ["coward", "liar", "hero", "fool"]
 told_objects = ["story", "lie", "truth", "secret"]
@@ -58,7 +62,7 @@ Vunderstand_object_dict["wrote"] = read_wrote_objects
 Vunderstand_object_dict["left"] = location_nouns
 Vunderstand_object_dict["read"] = read_wrote_objects
 Vunderstand_object_dict["ate"] = food_words
-Vunderstand_object_dict["paid"] = nouns
+Vunderstand_object_dict["paid"] = N
 
 var_of_string={
     "N": N,
@@ -70,5 +74,7 @@ var_of_string={
     "Adj": Adj,
     "Adv": Adv,
     "P": P,
+    "Rels": Rels,
     "Vunderstand": Vunderstand,
+    "VunderstandO": Vunderstand_object_dict,
 }
