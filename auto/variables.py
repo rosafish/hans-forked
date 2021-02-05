@@ -1,12 +1,13 @@
 var_type_subtypes={
-    "N": ["Np", "Ns"],
-    "V": ["Vt", "Vi", "Vunderstand"],
+    "N": ["Np", "Ns", "Nlocation"],
+    "V": ["Vt", "Vi", "Vunderstand", "Vpp", "Vnpz", "Vnps"],
     "Adj": [],
     "Adv": [],
     "Be": [],
     "P": [],
     "Rels": [],
     "O": [],
+    "Conj": [],
 }
 
 Ns=["professor", "student", "president","judge","senator","programmer","doctor","lawyer","scientist","banker","tourist","manager","artist","author","actor","athlete", \
@@ -64,6 +65,14 @@ Vunderstand_object_dict["read"] = read_wrote_objects
 Vunderstand_object_dict["ate"] = food_words
 Vunderstand_object_dict["paid"] = N
 
+Vpp = ["studied", "paid", "helped","investigated", "presented"]
+Nlocation = ["museum", "school", "library", "office","laboratory"]
+
+Conj = ["while", "after", "before", "when", "although", "because", "since"]
+Vnpz = ["hid", "moved", "presented", "paid","studied","stopped", "fought"]
+
+Vnps = ["believed", "knew", "heard"]
+
 var_of_string={
     "N": N,
     "Ns": Ns,
@@ -77,4 +86,9 @@ var_of_string={
     "Rels": Rels,
     "Vunderstand": Vunderstand,
     "VunderstandO": Vunderstand_object_dict,
+    "Vpp": Vpp,
+    "Nlocation": Nlocation,
+    "Conj": Conj,
+    "Vnpz": Vnpz,
+    "Vnps": Vnps,
 }

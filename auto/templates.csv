@@ -39,3 +39,33 @@ id, heuristic, template, subtemplate_id, label, premise, hypothesis, high_qualit
 37, subsequence, se_adjective, 0, entailment, Adj1 Np1 Vi1., Np1 Vi1., Adj1 Np1 Vi1 implies the Np1 Vi1., Adj1 Np1 are Np1., Adj1 Np1, Adj1 Np1 are Np1.,"['Adj1', 'Np1', 'Vi1']"
 38, subsequence, se_adjective, 1, entailment, Adj1 Np1 Vt1 the N2., Np1 Vt1 the N2., Adj1 Np1 Vt1 the N2 implies the Np1 Vt1 the N2., Adj1 Np1 are Np1., Adj1 Np1, Adj1 Np1 are Np1.,"['Adj1', 'Np1', 'Vt1', 'N2']"
 39, subsequence, se_understood_object, 0, entailment,The N1 Vunderstand1 the Vunderstand1_O1., The N1 Vunderstand1., The N1 Vunderstand1 the Vunderstand1_O1 implies the N1 Vunderstand1., Vunderstand1 the Vunderstand1_O1 is Vunderstand1., Vunderstand1 Vunderstand1_O1 Vunderstand1, Vunderstand1 the Vunderstand1_O1 is Vunderstand1.,"['N1', 'Vunderstand1_O1', 'Vunderstand1']"
+40, subsequence, se_relative_clause_on_obj, 0, entailment, The N1 Vt1 the N2 Rels1 Vi2., The N1 Vt1 the N2., The N2 Rels1 Vi2 N2_Be1 the N2., The N2 Rels1 Vi2 N2_Be1 the N2., N2 Rels1 Vi2, The N2 Rels1 Vi2 N2_Be1 the N2.,"['N1', 'Vt1', 'N2', 'N2_Be1', 'Rels1', 'Vi2']"
+41, subsequence, se_relative_clause_on_obj, 1, entailment, The N1 Vt1 the N2 Rels1 the N3 Vt2., The N1 Vt1 the N2., The N2 Rels1 the N3 Vt2 N2_Be1 the N2., The N2 Rels1 the N3 Vt2 N2_Be1 the N2., N2 Rels1 the N3 Vt2, The N2 Rels1 the N3 Vt2 N2_Be1 the N2.,"['N1', 'Vt1', 'N2', 'N2_Be1', 'Rels1', 'Vt2']"
+42, subsequence, se_relative_clause_on_obj, 2, entailment, The N1 Vt1 the N2 Rels1 Vt2 the N3., The N1 Vt1 the N2., The N2 Rels1 Vt2 the N3 N2_Be1 the N2., The N2 Rels1 Vt2 the N3 N2_Be1 the N2., N2 Rels1 Vt2 the N3., The N2 Rels1 Vt2 the N3 N2_Be1 the N2.,"['N1', 'Vt1', 'N2', 'N2_Be1', 'Rels1', 'Vt2']"
+43, subsequence, se_PP_on_obj, 0, entailment, The N1 Vt1 the N2 P1 the N3., The N1 Vt1 the N2., The N2 P1 the N3 N2_Be1 the N2., The N2 P1 the N3 N2_Be1 the N2., N2 P1 N3, The N2 P1 the N3 N2_Be1 the N2.,"['N1', 'Vt1', 'N2', 'N2_Be1', 'P1', 'N3']"
+44, subsequence, se_conjunction, 0, entailment, The N1 and the N2 Vi1., The N2 Vi1., The N1 and the N2 Vi1 implies the N2 Vi1., The N2 N2_Be1 part of the N1 and the N2., N2 N1 and N2, The N2 N2_Be1 part of the N1 and the N2.,"['N1', 'Vi1', 'N2', 'N2_Be1']"
+45, subsequence, se_conjunction, 1, entailment, The N1 and the N2 Vt1 the N3., The N2 Vt1 the N3., The N1 and the N2 Vt1 the N3 implies the N2 Vt1 the N3., The N2 N2_Be1 part of the N1 and the N2., N2 N1 and N2, The N2 N2_Be1 part of the N1 and the N2.,"['N1', 'Vt1', 'N2', 'N3', 'N2_Be1']"
+46, subsequence, se_conjunction, 2, entailment, The N1 Vt1 the N2 and the N3., The N1 Vt1 the N2., The N1 Vt1 the N2 and the N3 implied the N1 Vt1 the N2., The N2 N2_Be1 part of the N2 and the N3., N2 N2 and N3, The N2 N2_Be1 part of the N2 and the N3.,"['N1', 'Vt1', 'N2', 'N3', 'N2_Be1']"
+47, subsequence, sn_PP_on_subject, 0, neutral, The N1 P1 the N2 Vi1., The N2 Vi1., The N1 P1 the N2 N1_Be1 the N1., The N1 Vi1., N1 Vi1, The N1 Vi1.,"['N1', 'Vi1', 'N2', 'P1', 'N1_Be1']"
+48, subsequence, sn_PP_on_subject, 1, neutral, The N1 P1 the N2 Vt1 the N3., The N2 Vt1 the N3., The N1 P1 the N2 N1_Be1 the N1., The N1 Vt1 the N3., N1 Vt1 N3., The N1 Vt1 the N3.,"['N1', 'Vi1', 'N2', 'N3', 'P1', 'N1_Be1']"
+49, subsequence, sn_relative_clause_on_subject, 0, contradiction, The N1 Rels1 Vt1 the N2 Vi2., The N2 Vi2., The N1 Rels1 Vt1 the N2 is the N1., N2 Vi2, The N2 Vi2.,"['N1', 'Vt1', 'N2', 'Vi2', 'Rels1']"
+50, subsequence, sn_relative_clause_on_subject, 1, contradiction, The N1 Rels1 Vt1 the N2 Vt2 the N3., The N1 Vt2 the N3., The N1 Rels1 Vt1 the N2 is the N1., N1 Vt2 N3, The N1 V2 the N3.,"['N1', 'Vt1', 'N2', 'Vt2', 'Rels1', 'N3']"
+51, subsequence, sn_past_participle, 0, neutral, The N1 Vpp1 in the Nlocation2 Vi2., The N1 Vpp1 in the Nlocation2., The N1 either Vpp1 or someone Vpp1 the N1 in the Nlocation2., The N1 Vi2., N1 Vi2, The N1 Vi2.,"['N1', 'Nlocation2', 'Vpp1', 'Vi2']"
+52, subsequence, sn_past_participle, 1, neutral, The N1 Vpp1 in the Nlocation2 Vt2 the N3.,The N1 Vpp1 in the Nlocation2.,The N1 Vt2 the N3.,N1 Vt2 N3,The N1 Vt2 the N3.,"['N1', 'Nlocation2', 'Vpp1', 'Vt2', 'N3']"
+53, subsequence, sn_past_participle, 2, neutral, The N1 Vt1 the N2 Vpp2 in the Nlocation3.,The N2 Vpp2 in the Nlocation3.,The N1 Vt1 the N2 Vpp2 in the Nlocation3 does not imply the N2 Vpp2 in the Nlocation3.,The N2 might not be in the Nlocation3.,N2 not Nlocation3,The N2 might not be in the Nlocation3.,"['N1', 'Nlocation3', 'Vt1', 'Vpp2', 'N2']"
+54, subsequence, sn_NP/Z, 0, neutral, Conj1 the N1 Vnpz1 the N2 Vi2., The N1 Vnpz1 the N2., The N1 Vnpz1 the N2 Vi2 is different from the N1 Vnpz1 the N2., The N1 Vnpz1 the N2 Vi2.,N1 Vnpz1 N2 Vi2,The N1 Vnpz1 the N2 Vi2.,"['Conj1','N1', 'N2', 'Vnpz1', 'Vi2']"
+55, subsequence, sn_NP/Z, 1, neutral, Conj1 the N1 Vnpz1 the N2 Vt2 the N3., The N1 Vnpz1 the N2., The N1 Vnpz1 the N2 Vt2 the N3 is different from the N1 Vnpz1 the N2., The N1 Vnpz1 the N2 Vt2 the N3., N1 Vnpz1 N2 Vt2 N3, The N1 Vnpz1 the N2 Vt2 the N3.,"['Conj1','N1', 'N2', 'Vnpz1', 'Vt2', 'N3']"
+56, subsequence, sn_NP/S, 0, neutral, The N1 Vnps1 the N2 Vi2., The N1 Vnps1 the N2., The N1 Vnps1 the N2 Vi2 is different from the N1 Vnps1 the N2., The N2 is not the same as the N2 Vi2., N2 not N2 Vi2, The N2 is not the same as the N2 Vi2.,"['N1', 'N2', 'Vnps1', 'Vi2']"
+57, subsequence, sn_NP/S, 1, neutral, The N1 Vnps1 the N2 Vt2 the N3., The N1 Vnps1 the N2., The N1 Vnps1 the N2 Vt2 the N3 is different from the N1 Vnps1 the N2., The N2 is not the same as the N2 Vt2 the N3., N2 not N2 Vt2 the N3, The N2 is not the same as the N2 Vt2 the N3.,"['N1', 'N2', 'Vnps1', 'Vt2', 'N3']"
+
+?, constituent, ce_after_since_clause, 0, entailment,
+?, constituent, ce_embedded_under_verb, 0, entailment,
+?, constituent, ce_conjunction, 0, entailment,
+?, constituent, ce_adverb, 0, entailment,
+?, constituent, ce_embedded_under_since, 0, entailment,
+
+?, constituent, cn_after_if_clause, 0, neutral,
+?, constituent, cn_embedded_under_verb, 0, neutral,
+?, constituent, cn_disjunction, 0, neutral,
+?, constituent, cn_adverb, 0, neutral,
+?, constituent, cn_embedded_under_if, 0, neutral,
