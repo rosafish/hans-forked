@@ -1,8 +1,8 @@
 var_type_subtypes={
     "N": ["Np", "Ns", "Nlocation"],
-    "V": ["Vt", "Vi", "Vunderstand", "Vpp", "Vnpz", "Vnps"],
+    "V": ["Vt", "Vi", "Vunderstand", "Vpp", "Vnpz", "Vnps", "Vconstquotentailed"],
     "Adj": [],
-    "Adv": [],
+    "Adv": ['Advoutent'],
     "Be": [],
     "P": [],
     "Rels": [],
@@ -70,8 +70,10 @@ Nlocation = ["museum", "school", "library", "office","laboratory"]
 
 Conj = ["while", "after", "before", "when", "although", "because", "since"]
 Vnpz = ["hid", "moved", "presented", "paid","studied","stopped", "fought"]
-
 Vnps = ["believed", "knew", "heard"]
+Vconstquotentailed = ["forgot", "learned", "remembered", "knew"]
+
+Advoutent = ["after", "before", "because", "although", "though", "since", "while"]
 
 var_of_string={
     "N": N,
@@ -91,4 +93,6 @@ var_of_string={
     "Conj": Conj,
     "Vnpz": Vnpz,
     "Vnps": Vnps,
+    "Vconstquotentailed": Vconstquotentailed,
+    "Advoutent": Advoutent,
 }
