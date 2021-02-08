@@ -36,6 +36,7 @@ class Template:
         self.template=template
         print('template: ', template)
         self.subtemplate_id=subtemplate_id
+        print('subtemplate_id: ', subtemplate_id)
         self.label=label
         self.premise=premise
         self.hypothesis=hypothesis
@@ -43,6 +44,7 @@ class Template:
         self.low_quality=low_quality
         self.extreme_low_quality=extreme_low_quality
         self.natural_language=natural_language
+        # print('var_list: ', var_list)
         self.var_list=eval(var_list) 
         # print('self.var_list: ', type(self.var_list))
         self.variable_dict = dict((var_name, self.get_variable(var_name)) for var_name in self.var_list)

@@ -1,8 +1,8 @@
 var_type_subtypes={
     "N": ["Np", "Ns", "Nlocation"],
-    "V": ["Vt", "Vi", "Vunderstand", "Vpp", "Vnpz", "Vnps", "Vconstquotentailed"],
+    "V": ["Vt", "Vi", "Vunderstand", "Vpp", "Vnpz", "Vnps", "Vconstquotentailed", "Vnonentquote"],
     "Adj": [],
-    "Adv": ['Advoutent'],
+    "Adv": ['Advoutent', 'Advent', 'Advembent', 'Advoutnent', 'Advnonent', 'Advembnent'],
     "Be": [],
     "P": [],
     "Rels": [],
@@ -74,6 +74,12 @@ Vnps = ["believed", "knew", "heard"]
 Vconstquotentailed = ["forgot", "learned", "remembered", "knew"]
 
 Advoutent = ["after", "before", "because", "although", "though", "since", "while"]
+Advent = ["certainly", "definitely", "clearly", "obviously", "suddenly"]
+Advembent = ["after", "before", "because", "although", "though", "since", "while"]
+Advoutnent = ["if", "unless"]
+Vnonentquote = ["hoped", "claimed", "thought", "believed", "said", "assumed"]
+Advnonent = ["supposedly", "probably", "maybe", "hopefully"]
+Advembnent = ["if","unless"]
 
 var_of_string={
     "N": N,
@@ -89,10 +95,16 @@ var_of_string={
     "Vunderstand": Vunderstand,
     "VunderstandO": Vunderstand_object_dict,
     "Vpp": Vpp,
+    "Vnonentquote": Vnonentquote,
     "Nlocation": Nlocation,
     "Conj": Conj,
     "Vnpz": Vnpz,
     "Vnps": Vnps,
     "Vconstquotentailed": Vconstquotentailed,
     "Advoutent": Advoutent,
+    "Advent": Advent,
+    "Advembent": Advembent,
+    "Advoutnent": Advoutnent,
+    "Advnonent": Advnonent,
+    "Advembnent": Advembnent,
 }
