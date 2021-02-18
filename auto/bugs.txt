@@ -1,4 +1,5 @@
-the planners that cried is still the planners . -> the planners that cried are still the planners .
-the actors is part of the programmer and the actors . -> the actors are part of the programmer and the actors .
-the student that supported the singers supported the artisan ., supported shows up twice
-the tourists that encouraged the actors encouraged the judges ., encouraged shows up twice
+1: the planners that cried is still the planners . -> the planners that cried are still the planners .
+5: the actors is part of the programmer and the actors . -> the actors are part of the programmer and the actors .
+22: the student that supported the singers supported the artisan ., supported shows up twice
+23: the tourists that encouraged the actors encouraged the judges ., encouraged shows up twice
+58: carelessly -> because/although etc. for Advoutent1

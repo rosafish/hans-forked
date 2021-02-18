@@ -67,6 +67,7 @@ class Template:
                 continue
             if variable.type in ['V', 'N']:
                 have_value=False
+                # print('sampled_dict: ', sampled_dict)
                 while contains_dup(sampled_dict[variable.type], value) or not have_value:
                     if variable.subtype != None:
                         print("subtype")
@@ -80,7 +81,7 @@ class Template:
                         have_value = True
                 # print('variable.name: ', variable.name)
                 # print('value: ', value)
-                sampled_dict[variable.type].add(have_value)
+                sampled_dict[variable.type].add(value)
             
             else:
                 print("not N, V, Be")
@@ -89,16 +90,23 @@ class Template:
                 print(variable.subtype)
                 print('variable.name: ', variable.name)
                 print('variable.type: ', variable.type)
-                value = random.sample(var_of_string[variable.type],1)[0]
+                print('variable.type: ', variable.subtype)
+                if variable.subtype == None:
+                    value = random.sample(var_of_string[variable.type],1)[0]
+                else:
+                    value = random.sample(var_of_string[variable.subtype],1)[0]
             variable.set_value(value)
-            # print('variable.name: ', variable.name)
-            # print('variable.value: ', variable.value)
+            print('variable.name: ', variable.name)
+            print('variable.value: ', variable.value)
         # decide Be after sampling all nouns
         for variable in self.variable_dict.values():
             if variable.type=='Be':
                 association = variable.association
                 for v in self.variable_dict.values():
                     # print('v.name: ', v.name)
+                    # print('v.value: ', v.value)
+                    # print('v.type: ', v.type)
+                    # print('v.subtype: ', v.subtype)
                     # print('association: ', association)
                     if v.name == association:
                         if v.subtype == 'Np':
@@ -106,10 +114,12 @@ class Template:
                         elif v.subtype == 'Ns':
                             variable.set_value('is')
                         else: #N
-                            if v.name[-1]=='s':
+                            if v.value[-1]=='s':
                                 variable.set_value('are')
                             else:
                                 variable.set_value('is')
+                        # print(variable.value)
+                        break
             elif variable.type=="O":
                 association = variable.association
                 for v in self.variable_dict.values():
@@ -155,7 +165,7 @@ class Template:
         """
         return [self.id, self.heuristic, self.template, self.subtemplate_id, self.label, self.premise, self.hypothesis, \
                 self.high_quality, self.low_quality, self.extreme_low_quality, self.natural_language, self.var_list, \
-                self.example_premise, self.example_hypotheis, self.example_high_quality, self.example_low_quality, \
+                self.example_premise, self.example_hypotheis, self.example_high_quality, \
                 self.example_extreme_low_quality]
         
 
@@ -231,7 +241,7 @@ def read_templates(fi):
 
 def main():
     random.seed(2021)
-    fi = './templates.csv'
+    fi = './templates_new.csv'
     fo = './templates_with_example.csv'
     
     # read templates 
@@ -239,7 +249,7 @@ def main():
 
     output_header = ["id", "heuristic", "template", "subtemplate_id", "label", "premise", "hypothesis", \
                      "high_quality", "low_quality", "extreme_low_quality", "natural_language", "var_list", \
-                     "example_premise", "example_hypotheis", "example_high_quality", "example_low_quality", \
+                     "example_premise", "example_hypotheis", "example_high_quality", \
                      "example_extreme_low_quality"]
     output_rows = [t.output() for t in templates]
 

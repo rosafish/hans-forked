@@ -20,7 +20,7 @@ def main():
         reader = csv.reader(f)
         for (i, line) in enumerate(reader):
             if i > 0:
-                for j in range(12, 17, 1):
+                for j in range(12, 16, 1):
                     contains_var(line[j])
 
 
