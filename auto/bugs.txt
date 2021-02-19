@@ -1,34 +1,13 @@
-1: the planners that cried is still the planners . -> the planners that cried are still the planners .
-5: the actors is part of the programmer and the actors . -> the actors are part of the programmer and the actors .
-22: the student that supported the singers supported the artisan ., supported shows up twice
-23: the tourists that encouraged the actors encouraged the judges ., encouraged shows up twice
-58: carelessly -> because/although etc. for Advoutent1
-
-7: pointer
-13: missing
-20: the
-26, 27, 28, 29: period
-
-51: fix it, e.g. add "that"
-
-knwo -> know
-
-group by premise, look at different hypothesis and labels
-check pointers automatically
-
-pointer: N, V, adv, adj
-
 1. DONE remove unnecessary cols
 2. automatic checks:
-    - pointers to contain only N, V, adv and adj
+    - DONE pointers to contain only N, V, adv, adj, O, not, know
     - typos
         - DONE knwo -> know
     - DONE check missing IDs (rows)
-    - check if missing "the" in front of nouns (exceptions for adj + nouns)
-    - check if missing periods for NL explanations
+    - DONE check if missing "the" in front of nouns (exceptions for adj + nouns)
+    - DONE check if missing periods for NL explanations
 3. group by premise, look at different hypothesis and labels
 4. 51: fix it, e.g. add "that"
-
 
 list of "questions" for chenhao:
 56, subsequence, sn_NP/S, 0, neutral, the N1 Vnps1 the N2 Vi2., the N1 Vnps1 the N2.,"the N1 Vnps1 the N2 Vi2 , we do not know whether the N1 Vnps1 the N2 doing other things.","the N1 Vnps1 the N2 Vi2 , we do not know whether the N1 Vnps1 the N2 doing other things.", N1 Vnps1 N2 Vi2 not know N1 Vnps1 N2,"the N1 Vnps1 the N2 Vi2 , we do not know whether the N1 Vnps1 the N2 doing other things.","['N1', 'N2', 'Vnps1', 'Vi2']",the psychologist believed the strategists panicked .,the psychologist believed the strategists .,"the psychologist believed the strategists panicked , we do not know whether the psychologist believed

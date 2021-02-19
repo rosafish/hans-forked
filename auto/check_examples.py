@@ -35,7 +35,7 @@ def main():
                 if high_expl_tokens[-1] != '.':
                     print('last token is not period in high q expl for line: ', line)
 
-                # TODO: check pointer templates (only contain N, V, Adj, Adv from NL templates)
+                # check pointer templates (only contain N, V, Adj, Adv from NL templates)
                 nl_template = line[-7]
                 nl_template = nl_template[:-1]
                 nl_template_tokens = nl_template.split(' ')
