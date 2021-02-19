@@ -3,3 +3,41 @@
 22: the student that supported the singers supported the artisan ., supported shows up twice
 23: the tourists that encouraged the actors encouraged the judges ., encouraged shows up twice
 58: carelessly -> because/although etc. for Advoutent1
+
+7: pointer
+13: missing
+20: the
+26, 27, 28, 29: period
+
+51: fix it, e.g. add "that"
+
+knwo -> know
+
+group by premise, look at different hypothesis and labels
+check pointers automatically
+
+pointer: N, V, adv, adj
+
+1. DONE remove unnecessary cols
+2. automatic checks:
+    - pointers to contain only N, V, adv and adj
+    - typos
+        - DONE knwo -> know
+    - DONE check missing IDs (rows)
+    - check if missing "the" in front of nouns (exceptions for adj + nouns)
+    - check if missing periods for NL explanations
+3. group by premise, look at different hypothesis and labels
+4. 51: fix it, e.g. add "that"
+
+
+list of "questions" for chenhao:
+56, subsequence, sn_NP/S, 0, neutral, the N1 Vnps1 the N2 Vi2., the N1 Vnps1 the N2.,"the N1 Vnps1 the N2 Vi2 , we do not know whether the N1 Vnps1 the N2 doing other things.","the N1 Vnps1 the N2 Vi2 , we do not know whether the N1 Vnps1 the N2 doing other things.", N1 Vnps1 N2 Vi2 not know N1 Vnps1 N2,"the N1 Vnps1 the N2 Vi2 , we do not know whether the N1 Vnps1 the N2 doing other things.","['N1', 'N2', 'Vnps1', 'Vi2']",the psychologist believed the strategists panicked .,the psychologist believed the strategists .,"the psychologist believed the strategists panicked , we do not know whether the psychologist believed
+62, constituent, ce_after_since_clause, 4, entailment,"in case the N1 Vi1 , the N2 Vi2.",the N2 Vi2.,"the N1 Vi1 , so the N2 Vi2.","the N1 Vi1, so the N2 Vi2.",N1 Vi1 N2 Vi2,"the N1 Vi1 , so the N2 Vi2.","['N1', 'N2', 'Vi1', 'Vi2']","in case the senator cried , the analysts worked .",the analysts worked .,"the senator cried , so the analysts worked .",senator cried analysts worked
+66, constituent, ce_after_since_clause, 8, entailment,"whether or not the N1 Vi1 , the N2 Vi2.",the N2 Vi2.,"the N1 Vi1 , so the N2 Vi2.","the N1 Vi1, so the N2 Vi2.",N1 Vi1 N2 Vi2,"the N1 Vi1 , so the N2 Vi2.","['N1', 'N2', 'Vi1', 'Vi2']","whether or not the presidents cried , the analyst died .",the analyst died .,"the presidents cried , so the analyst died .",presidents cried analyst died
+70, constituent, ce_embedded_under_verb, 0, entailment, the N1 Vconstquotentailed1 Rels1 the N2 Vi2., the N2 Vi2.,"the N1 Vconstquotentailed1 Rels1 the N2 Vi2 , so the N2 Vi2 is a fact that happened.","the N1 Vconstquotentailed1 Rels1 the N2 Vi2 , so the N2 Vi2 is a fact that happened.", N1 Vconstquotentailed1 Rels1 N2 Vi2 N2 Vi2,"the N1 Vconstquotentailed1 Rels1 the N2 Vi2, so the N2 Vi2 is a fact that happened.","['N1', 'N2', 'Vconstquotentailed1', 'Vi2', 'Rels1']",the illustrator learned that the tourists arrived .,the tourists arrived .,"the illustrator learned that the tourists arrived , so the tourists arrived is a fact that happened .",illustrator learned that tourists arrived tourists arrived
+80, constituent, ce_adverb, 0, entailment, Advent1 the N1 Vi1., the N1 Vi1., the N1 Vi1 Advent1 still means the N1 Vi1., the N1 Vi1 Advent1 still means the N1 Vi1., N1 Vi1 Advent1 N1 Vi1, the N1 Vi1 Advent1 still means the N1 Vi1.,"['Advent1', 'N1', 'Vi1']",certainly the director lay .,the director lay .,the director lay certainly still means the director lay .,director lay certainly director lay
+84, constituent, ce_adverb, 4, entailment, of course the N1 Vi1., the N1 Vi1., the N1 Vi1 still means the N1 Vi1., the N1 Vi1 still means the N1 Vi1., N1 Vi1 N1 Vi1, the N1 Vi1 still means the N1 Vi1.,"['N1', 'Vi1']",of course the sculptor shouted .,the sculptor shouted .,the sculptor shouted still means the sculptor shouted .,sculptor shouted sculptor shouted
+86, constituent, ce_embedded_under_since, 0, entailment,"Advembent1 the N1 Vi1 , the N2 Vi2.", the N1 Vi1,"the N1 Vi1 , so the N2 Vi2.","the N1 Vi1 , so the N2 Vi2.", N1 Vi1 N2 Vi2,"the N1 Vi1 , so the N2 Vi2.","['Advembent1', 'N1', 'N2', 'Vi1', 'Vi2']","after the therapist existed , the scientists danced .",the therapist existed,"the therapist existed , so the scientists danced .",therapist existed scientists danced
+94, constituent, cn_embedded_under_verb, 0, neutral, the N1 Vnonentquote1 that the N2 Vi2., the N2 Vi2., the N1 could be wrong about the N2 Vi2., do not know if the N2 Vi2., not know N2 Vi2, do not know if the N2 Vi2.,"['N1', 'N2', 'Vnonentquote1', 'Vi2']",the director thought that the athlete continued .,the athlete continued .,the director could be wrong about the athlete continued .,not know athlete continued
+104, constituent, cn_adverb, 0, neutral, Advnonent1 the N1 Vi1., the N1 Vi1., we do not know if the N1 Vi1., we do not know if the N1 Vi1., not know N1 Vi1 , we do not know if the N1 Vi1.,"['N1', 'Advnonent1', 'Vi1']",hopefully the curators worked .,the curators worked .,we do not know if the curators worked .,not know curators worked
+106, constituent, cn_embedded_under_if, 0, neutral,"Advembnent1 the N1 Vi1 , the N2 Vi2.", the N1 Vi1,"the N2 Vi2 if the N1 Vi1 , we do not know N1 Vi1.","the N2 Vi2 if the N1 Vi1 , we do not know N1 Vi1.", N2 Vi2 N1 Vi1 not know N1 Vi1,"the N2 Vi2 if the N1 Vi1 , we do not know N1 Vi1.","['Advembnent1', 'N1', 'N2', 'Vi1', 'Vi2']","unless the programmers existed , the photographer resigned .",the programmers existed,"the photographer resigned if the programmers existed , we do not know programmers existed .",photographer resigned programmers existed not know programmers existed

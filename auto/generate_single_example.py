@@ -164,7 +164,7 @@ class Template:
         output in a list for the output csv row format
         """
         return [self.id, self.heuristic, self.template, self.subtemplate_id, self.label, self.premise, self.hypothesis, \
-                self.high_quality, self.low_quality, self.extreme_low_quality, self.natural_language, self.var_list, \
+                self.high_quality, self.extreme_low_quality, self.var_list, \
                 self.example_premise, self.example_hypotheis, self.example_high_quality, \
                 self.example_extreme_low_quality]
         
@@ -248,7 +248,7 @@ def main():
     templates = read_templates(fi)
 
     output_header = ["id", "heuristic", "template", "subtemplate_id", "label", "premise", "hypothesis", \
-                     "high_quality", "low_quality", "extreme_low_quality", "natural_language", "var_list", \
+                     "high_quality", "extreme_low_quality", "var_list", \
                      "example_premise", "example_hypotheis", "example_high_quality", \
                      "example_extreme_low_quality"]
     output_rows = [t.output() for t in templates]
