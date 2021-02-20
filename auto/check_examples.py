@@ -55,7 +55,7 @@ def main():
                     print('current:', pointer_template_tokens)
                     print('should be:', constructed_pt_template_list)
                     print()
-                    break
+                    # break
                 
 
                 # for nl explanation check "the" in front of N (except for special cases such as Np and "a" Ns and adj + N and ?)
