@@ -3,7 +3,7 @@ var_type_subtypes={
     "V": ["Vt", "Vi", "Vunderstand", "Vpp", "Vnpz", "Vnps", "Vconstquotentailed", "Vnonentquote"],
     "Adj": [],
     "Adv": ['Advoutent', 'Advent', 'Advembent', 'Advoutnent', 'Advnonent', 'Advembnent'],
-    "Be": [],
+    "Be": ['BePast'],
     "P": [],
     "Rels": [],
     "O": [],

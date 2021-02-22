@@ -110,14 +110,26 @@ class Template:
                     # print('association: ', association)
                     if v.name == association:
                         if v.subtype == 'Np':
-                            variable.set_value('are')
-                        elif v.subtype == 'Ns':
-                            variable.set_value('is')
-                        else: #N
-                            if v.value[-1]=='s':
+                            if variable.subtype == 'BePast': 
+                                variable.set_value('were')
+                            else:
                                 variable.set_value('are')
+                        elif v.subtype == 'Ns':
+                            if variable.subtype == 'BePast': 
+                                variable.set_value('was')
                             else:
                                 variable.set_value('is')
+                        else: #N
+                            if v.value[-1]=='s':
+                                if variable.subtype == 'BePast': 
+                                    variable.set_value('were')
+                                else:
+                                    variable.set_value('are')
+                            else:
+                                if variable.subtype == 'BePast': 
+                                    variable.set_value('was')
+                                else:
+                                    variable.set_value('is')
                         # print(variable.value)
                         break
             elif variable.type=="O":
