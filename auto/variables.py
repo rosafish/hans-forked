@@ -28,7 +28,7 @@ Vt=["recommended", "called", "helped","supported","contacted","avoided","advised
     "recognized","admired", "addressed", "needed", "brought", "disturbed", "deceived", "offended", "affected", "found", "expected"]
 Vi=["slept", "danced", "ran","shouted","resigned","waited", "arrived", "performed", \
     "voted", "sat", "laughed", "agreed", "appeared", "continued", "cried", "died", "existed", "grew", "lay", "listened", "panicked", "smiled", \
-    "talked", "worked", "yell"]
+    "talked", "worked", "yelled"]
 V=Vi+Vt
 
 P=["near", "behind", "by", "in front of", "next to"]
