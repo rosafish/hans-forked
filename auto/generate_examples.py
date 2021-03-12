@@ -3,8 +3,7 @@ Reads csv file with templates and fill in 1 generated example for each template
 """
 import csv 
 import random
-# from variables import *
-
+import os
 import sys
 sys.path.append('/data/rosa/my_github/misinformation/code/')
 from myTools import write_csv
@@ -341,8 +340,8 @@ def set_vocab_by_type(data_type):
         Ns = Ns_ind
         Np = Np_ind
         N = N_ind
-        print('N: ', N)
-        print('N_ind: ', N_ind)
+        # print('N: ', N)
+        # print('N_ind: ', N_ind)
         Vt = Vt_ind
         Vi = Vi_ind
         V = V_ind
@@ -719,14 +718,29 @@ def read_templates(fi):
     return templates
 
 
+def filter_by_template_partition(template_partition, output_rows):
+    '''
+    template_partition: list of template ids
+    output_rows[1] = template_id
+    '''
+    filtered_result = []
+    for row in output_rows:
+        if eval(row[1]) in template_partition:
+            filtered_result.append(row)
+    return filtered_result
+
+
 def main():
-    num_seeds = 2
+    num_seeds = 30
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
     print(seeds)
 
     fi = './templates_new.csv'
+    # read templates 
+    templates = read_templates(fi)
+    template_indices = [i for i in range(118)]
     output_header = ["guid", "template_id", "heuristic", "template", "subtemplate_id", "label", "premise", "hypothesis", \
                      "high_quality", "extreme_low_quality", "var_list", \
                      "example_premise", "example_hypotheis", "example_high_quality", \
@@ -735,77 +749,110 @@ def main():
     for seed_index in range(num_seeds): 
         print(seed_index)
         random.seed(seeds[seed_index]) # setting seed here works for functions imported from templates too
+        random.shuffle(template_indices)
 
-        # read templates 
-        templates = read_templates(fi)
+        partition1 = template_indices[0:24]
+        partition2 = template_indices[24:48]
+        partition3 = template_indices[48:72]
+        partition4 = template_indices[72:95]
+        partition5 = template_indices[95:118]
 
-        fo_ind_train = './seed%d/ind_train_160.csv' % seed_index
-        fo_ind_dev = './seed%d/ind_dev_32.csv' % seed_index
-        fo_ind_test = './seed%d/ind_test_300.csv' % seed_index
-        fo_ood_test = './seed%d/ood_test_300.csv' % seed_index
+        partitions = [partition1, partition2, partition3, partition4, partition5]
 
-        ind_ood_split()
+        for partition_index in range(5):
+            test_partition = partitions[partition_index]
 
-        # IND
-        set_vocab_by_type('ind')
-        print('ind')
-        # print('N: ', N)
-        num_examples = 492
-        output_rows_train = []
-        output_rows_dev = []
-        output_rows_test = []
-        guid_train = 0
-        guid_dev = 0
-        guid_test = 0
-        for t in templates:
-            existing_templates = []
-            for i in range(num_examples):
-                generated_template = t.generate_one_example()
-                
-                # check generated_template duplicate with existing
-                while generated_template in existing_templates:
-                    print('true')
+            train_dev_partitions = partitions[:partition_index] + partitions[partition_index+1:]
+            train_dev_partition = []
+            for p in train_dev_partitions:
+                train_dev_partition.extend(p)
+
+            fo_dir = '/data/rosa/hans-forked/auto/generated_data/seed%d/partition%d/' % (seed_index, partition_index) 
+            fo_train = '%strain_160.csv' % fo_dir
+            fo_dev = '%sdev_32.csv' % fo_dir
+            fo_test_ivit = '%stest_ivit_300.csv' % fo_dir
+            fo_test_ivot = '%stest_ivot_300.csv' % fo_dir
+            fo_test_ovit = '%stest_ovit_300.csv' % fo_dir
+            fo_test_ovot = '%stest_ovot_300.csv' % fo_dir
+            fo_list = [fo_train, fo_dev, fo_test_ivit, fo_test_ivot, fo_test_ovit, fo_test_ovot]
+
+            for fo in fo_list:
+                if not os.path.exists(fo_dir):
+                    os.makedirs(fo_dir)
+
+            ind_ood_split()
+
+            # IND
+            set_vocab_by_type('ind')
+            print('ind')
+            num_examples = 492
+            output_rows_train = []
+            output_rows_dev = []
+            output_rows_test = []
+            guid_train = 0
+            guid_dev = 0
+            guid_test = 0
+            for t in templates:
+                existing_templates = []
+                for i in range(num_examples):
                     generated_template = t.generate_one_example()
-                
-                # add guid
-                if i < 160:
-                    output_rows_train.append([guid_train]+generated_template)
-                    guid_train += 1
-                elif i < 192:
-                    output_rows_dev.append([guid_dev]+generated_template)
-                    guid_dev += 1
-                else:
-                    output_rows_test.append([guid_test]+generated_template)
-                    guid_test += 1
+                    
+                    # check generated_template duplicate with existing
+                    while generated_template in existing_templates:
+                        # print('true')
+                        generated_template = t.generate_one_example()
+                    
+                    # add guid
+                    if i < 160:
+                        output_rows_train.append([guid_train]+generated_template)
+                        guid_train += 1
+                    elif i < 192:
+                        output_rows_dev.append([guid_dev]+generated_template)
+                        guid_dev += 1
+                    else:
+                        output_rows_test.append([guid_test]+generated_template)
+                        guid_test += 1
 
-                existing_templates.append(generated_template)
+                    existing_templates.append(generated_template)
 
-        write_csv(fo_ind_train, output_rows_train, output_header)
-        write_csv(fo_ind_dev, output_rows_dev, output_header)
-        write_csv(fo_ind_test, output_rows_test, output_header)
+            # filter by templates partitions
+            output_rows_train_it = filter_by_template_partition(train_dev_partition, output_rows_train)
+            output_rows_dev_it = filter_by_template_partition(train_dev_partition, output_rows_dev)
+            output_rows_test_ivit = filter_by_template_partition(train_dev_partition, output_rows_test)
+            output_rows_test_ivot = filter_by_template_partition(test_partition, output_rows_test)
 
-        # OOD
-        set_vocab_by_type('ood')
-        print('ood')
-        num_examples = 300
-        output_rows = []
-        guid = 0
-        for t in templates:
-            existing_templates = []
-            for i in range(num_examples):
-                generated_template = t.generate_one_example()
-                
-                # check generated_template duplicate with existing
-                while generated_template in existing_templates:
-                    print('true')
+            write_csv(fo_train, output_rows_train_it, output_header)
+            write_csv(fo_dev, output_rows_dev_it, output_header)
+            write_csv(fo_test_ivit, output_rows_test_ivit, output_header)
+            write_csv(fo_test_ivot, output_rows_test_ivot, output_header)
+
+            # OOD
+            set_vocab_by_type('ood')
+            print('ood')
+            num_examples = 300
+            output_rows = []
+            guid = 0
+            for t in templates:
+                existing_templates = []
+                for i in range(num_examples):
                     generated_template = t.generate_one_example()
-                
-                # add guid
-                output_rows.append([guid]+generated_template)
-                guid += 1
-                existing_templates.append(generated_template)
+                    
+                    # check generated_template duplicate with existing
+                    while generated_template in existing_templates:
+                        # print('true')
+                        generated_template = t.generate_one_example()
+                    
+                    # add guid
+                    output_rows.append([guid]+generated_template)
+                    guid += 1
+                    existing_templates.append(generated_template)
 
-        write_csv(fo_ood_test, output_rows, output_header)
+            # filter by templates partitions
+            output_rows_test_ovit = filter_by_template_partition(train_dev_partition, output_rows)
+            output_rows_test_ovot = filter_by_template_partition(test_partition, output_rows)
+
+            write_csv(fo_test_ovit, output_rows_test_ovit, output_header)
+            write_csv(fo_test_ovot, output_rows_test_ovot, output_header)
 
 
 if __name__=="__main__":
