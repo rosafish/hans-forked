@@ -731,7 +731,7 @@ def filter_by_template_partition(template_partition, output_rows):
 
 
 def main():
-    num_seeds = 30
+    num_seeds = 2
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
@@ -792,6 +792,8 @@ def main():
             guid_train = 0
             guid_dev = 0
             guid_test = 0
+            output_rows_train_by_template = {}
+            output_rows_dev_by_template = {}
             for t in templates:
                 existing_templates = []
                 for i in range(num_examples):
@@ -804,10 +806,22 @@ def main():
                     
                     # add guid
                     if i < 160:
-                        output_rows_train.append([guid_train]+generated_template)
+                        line = [guid_train]+generated_template
+                        template_id = generated_template[0]
+                        if template_id in output_rows_train_by_template:
+                            output_rows_train_by_template[template_id].append(line)
+                        else:
+                            output_rows_train_by_template[template_id] = [line]
+                        output_rows_train.append(line)
                         guid_train += 1
                     elif i < 192:
-                        output_rows_dev.append([guid_dev]+generated_template)
+                        line = [guid_dev]+generated_template
+                        template_id = generated_template[0]
+                        if template_id in output_rows_dev_by_template:
+                            output_rows_dev_by_template[template_id].append(line)
+                        else:
+                            output_rows_dev_by_template[template_id] = [line]
+                        output_rows_dev.append(line)
                         guid_dev += 1
                     else:
                         output_rows_test.append([guid_test]+generated_template)
@@ -820,11 +834,27 @@ def main():
             output_rows_dev_it = filter_by_template_partition(train_dev_partition, output_rows_dev)
             output_rows_test_ivit = filter_by_template_partition(train_dev_partition, output_rows_test)
             output_rows_test_ivot = filter_by_template_partition(test_partition, output_rows_test)
-
             write_csv(fo_train, output_rows_train_it, output_header)
             write_csv(fo_dev, output_rows_dev_it, output_header)
             write_csv(fo_test_ivit, output_rows_test_ivit, output_header)
             write_csv(fo_test_ivot, output_rows_test_ivot, output_header)
+
+            # few sample for train and dev sets
+            train_sample_sizes = [1,2,4,8,16,32,64]
+            dev_sample_sizes = list(set([int(0.2*k)+1 for k in train_sample_sizes]))
+            for train_size in train_sample_sizes:
+                fo_train = '%strain_%d.csv' % (fo_dir, train_size)
+                output_rows = []
+                for k,v in output_rows_train_by_template.items():
+                    output_rows.extend(v[:train_size])
+                write_csv(fo_train, output_rows, output_header)
+            for dev_size in dev_sample_sizes:
+                fo_dev = '%sdev_%d.csv' % (fo_dir, dev_size)
+                output_rows = []
+                for k,v in output_rows_dev_by_template.items():
+                    output_rows.extend(v[:dev_size])
+                write_csv(fo_dev, output_rows, output_header)
+
 
             # OOD
             set_vocab_by_type('ood')
@@ -850,7 +880,6 @@ def main():
             # filter by templates partitions
             output_rows_test_ovit = filter_by_template_partition(train_dev_partition, output_rows)
             output_rows_test_ovot = filter_by_template_partition(test_partition, output_rows)
-
             write_csv(fo_test_ovit, output_rows_test_ovit, output_header)
             write_csv(fo_test_ovot, output_rows_test_ovot, output_header)
 
