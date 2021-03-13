@@ -855,7 +855,6 @@ def main():
                     output_rows.extend(v[:dev_size])
                 write_csv(fo_dev, output_rows, output_header)
 
-
             # OOD
             set_vocab_by_type('ood')
             print('ood')
