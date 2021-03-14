@@ -12,7 +12,7 @@ esnli_format_header = ["pairID", "gold_label", "Sentence1", "Sentence2", "Explan
                         "Sentence2_marked_3", "Sentence1_Highlighted_3", "Sentence2_Highlighted_3"]
                         
 def main():
-    num_seeds = 2
+    num_seeds = 30
     fi_name_list = ['dev_1', 'dev_2', 'dev_4', 'dev_7', 'dev_13', 'dev_32',
              'train_1', 'train_2', 'train_4', 'train_8', 'train_16', 'train_32', 'train_64',
              'test_ivit_300', 'test_ivot_300', 'test_ovit_300', 'test_ovot_300']
@@ -21,11 +21,13 @@ def main():
             path = './generated_data/seed%d/partition%d/' % (seed, partition)
             for fi in fi_name_list:
                 fi_path = path + fi + '.csv'
-                fo_nl = path + fi + '_nl.csv' # natural language explanation
-                fo_pt = path + fi + '_pt.csv'# pointer-only explanations
+                # fo_nl = path + fi + '_nl.csv' # natural language explanation
+                # fo_pt = path + fi + '_pt.csv'# pointer-only explanations
+                fo_empty_expl = path + fi + '_empty_expl.csv' # empty_expl
 
                 nl_rows = []
                 pt_rows = []
+                empty_expl_rows = []
 
                 with open(fi_path) as f:
                     reader = csv.reader(f)
@@ -52,11 +54,19 @@ def main():
                             pt_row[3] = h
                             pt_row[4] = pt
 
+                            empty_expl_row = [""]*19
+                            empty_expl_row[0] = guid
+                            empty_expl_row[1] = label
+                            empty_expl_row[2] = p
+                            empty_expl_row[3] = h
+
                             nl_rows.append(nl_row)
                             pt_rows.append(pt_row)
+                            empty_expl_rows.append(empty_expl_row)
 
-                write_csv(fo_nl, nl_rows, esnli_format_header)
-                write_csv(fo_pt, pt_rows, esnli_format_header)
+                # write_csv(fo_nl, nl_rows, esnli_format_header)
+                # write_csv(fo_pt, pt_rows, esnli_format_header)
+                write_csv(fo_empty_expl, empty_expl_rows, esnli_format_header)
 
 if __name__=='__main__':
     main()

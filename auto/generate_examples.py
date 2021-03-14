@@ -731,7 +731,7 @@ def filter_by_template_partition(template_partition, output_rows):
 
 
 def main():
-    num_seeds = 2
+    num_seeds = 30
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
