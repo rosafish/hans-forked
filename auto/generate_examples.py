@@ -8,6 +8,8 @@ import sys
 sys.path.append('/data/rosa/my_github/misinformation/code/')
 from myTools import write_csv
 
+setting = -1
+
 Ns = []
 Np = []
 N = []
@@ -271,33 +273,59 @@ def ind_ood_split():
     Vi_ind, Vi_ood = split_in_half(Vi_all)
     V_ind = Vt_ind + Vi_ind
     V_ood = Vt_ood + Vi_ood
-
-    P_ind, P_ood = split_in_half(P_all)
+    
     Adj_ind, Adj_ood = split_in_half(Adj_all)
     Adv_ind, Adv_ood = split_in_half(Adv_all)
 
-    Rels_ind, Rels_ood = split_in_half(Rels_all)
-    Vunderstand_ind, Vunderstand_ood = split_in_half(Vunderstand_all)
-    called_objects_ind, called_objects_ood = split_in_half(called_objects_all)
-    told_objects_ind, told_objects_ood = split_in_half(told_objects_all)
-    food_words_ind, food_words_ood = split_in_half(food_words_all)
-    location_nouns_ind, location_nouns_ood = split_in_half(location_nouns_all)
-    location_nouns_b_ind, location_nouns_b_ood = split_in_half(location_nouns_b_all)
-    won_objects_ind, won_objects_ood = split_in_half(won_objects_all)
-    read_wrote_objects_ind, read_wrote_objects_ood = split_in_half(read_wrote_objects_all)
-    Vpp_ind, Vpp_ood = split_in_half(Vpp_all)
-    Nlocation_ind, Nlocation_ood = split_in_half(Nlocation_all)
-    Conj_ind, Conj_ood = split_in_half(Conj_all)
-    Vnpz_ind, Vnpz_ood = split_in_half(Vnpz_all)
-    Vnps_ind, Vnps_ood = split_in_half(Vnps_all)
-    Vconstquotentailed_ind, Vconstquotentailed_ood = split_in_half(Vconstquotentailed_all)
-    Advoutent_ind, Advoutent_ood = split_in_half(Advoutent_all)
-    Advent_ind, Advent_ood = split_in_half(Advent_all)
-    Advembent_ind, Advembent_ood = split_in_half(Advembent_all)
-    Advoutnent_ind, Advoutnent_ood = split_in_half(Advoutnent_all)
-    Vnonentquote_ind, Vnonentquote_ood = split_in_half(Vnonentquote_all)
-    Advnonent_ind, Advnonent_ood = split_in_half(Advnonent_all)
-    Advembnent_ind, Advembnent_ood = split_in_half(Advembnent_all)
+    global setting
+    if setting == 1:
+        P_ind, P_ood = split_in_half(P_all)
+        Rels_ind, Rels_ood = split_in_half(Rels_all)
+        Vunderstand_ind, Vunderstand_ood = split_in_half(Vunderstand_all)
+        called_objects_ind, called_objects_ood = split_in_half(called_objects_all)
+        told_objects_ind, told_objects_ood = split_in_half(told_objects_all)
+        food_words_ind, food_words_ood = split_in_half(food_words_all)
+        location_nouns_ind, location_nouns_ood = split_in_half(location_nouns_all)
+        location_nouns_b_ind, location_nouns_b_ood = split_in_half(location_nouns_b_all)
+        won_objects_ind, won_objects_ood = split_in_half(won_objects_all)
+        read_wrote_objects_ind, read_wrote_objects_ood = split_in_half(read_wrote_objects_all)
+        Vpp_ind, Vpp_ood = split_in_half(Vpp_all)
+        Nlocation_ind, Nlocation_ood = split_in_half(Nlocation_all)
+        Conj_ind, Conj_ood = split_in_half(Conj_all)
+        Vnpz_ind, Vnpz_ood = split_in_half(Vnpz_all)
+        Vnps_ind, Vnps_ood = split_in_half(Vnps_all)
+        Vconstquotentailed_ind, Vconstquotentailed_ood = split_in_half(Vconstquotentailed_all)
+        Advoutent_ind, Advoutent_ood = split_in_half(Advoutent_all)
+        Advent_ind, Advent_ood = split_in_half(Advent_all)
+        Advembent_ind, Advembent_ood = split_in_half(Advembent_all)
+        Advoutnent_ind, Advoutnent_ood = split_in_half(Advoutnent_all)
+        Vnonentquote_ind, Vnonentquote_ood = split_in_half(Vnonentquote_all)
+        Advnonent_ind, Advnonent_ood = split_in_half(Advnonent_all)
+        Advembnent_ind, Advembnent_ood = split_in_half(Advembnent_all)
+    elif setting == 2:
+        P_ind = P_ood = P_all
+        Rels_ind = Rels_ood = Rels_all
+        Vunderstand_ind = Vunderstand_ood = Vunderstand_all
+        called_objects_ind = called_objects_ood = called_objects_all
+        told_objects_ind = told_objects_ood = told_objects_all
+        food_words_ind = food_words_ood = food_words_all
+        location_nouns_ind = location_nouns_ood = location_nouns_all
+        location_nouns_b_ind = location_nouns_b_ood = location_nouns_b_all
+        won_objects_ind = won_objects_ood = won_objects_all
+        read_wrote_objects_ind = read_wrote_objects_ood = read_wrote_objects_all
+        Vpp_ind = Vpp_ood = Vpp_all
+        Nlocation_ind = Nlocation_ood = Nlocation_all
+        Conj_ind = Conj_ood = Conj_all
+        Vnpz_ind = Vnpz_ood = Vnpz_all
+        Vnps_ind = Vnps_ood = Vnps_all
+        Vconstquotentailed_ind = Vconstquotentailed_ood = Vconstquotentailed_all
+        Advoutent_ind = Advoutent_ood = Advoutent_all
+        Advent_ind = Advent_ood = Advent_all
+        Advembent_ind = Advembent_ood = Advembent_all
+        Advoutnent_ind = Advoutnent_ood = Advoutnent_all
+        Vnonentquote_ind = Vnonentquote_ood = Vnonentquote_all
+        Advnonent_ind = Advnonent_ood = Advnonent_all
+        Advembnent_ind = Advembnent_ood = Advembnent_all
 
     
 def set_vocab_by_type(data_type):
@@ -495,6 +523,8 @@ class Template:
         self.subtemplate_id=subtemplate_id
         # print('subtemplate_id: ', subtemplate_id)
         self.label=label
+        if label[0] == ' ':
+            self.label=label[1:]
         self.premise=premise
         self.hypothesis=hypothesis
         self.high_quality=high_quality
@@ -731,7 +761,19 @@ def filter_by_template_partition(template_partition, output_rows):
 
 
 def main():
-    num_seeds = 30
+    global setting
+    setting = eval(sys.argv[1])
+    # setting = 1 if we split every type of word into ind and ood vocab
+    # setting = 2 if we only split for N, V, Adv and Adj
+    if setting == 1:
+        local_out_dir_name = 'generated_data'
+    elif setting == 2:
+        local_out_dir_name = 'generated_data_new_setting'
+    else:
+        print('Error: invalid setting.')
+        return
+
+    num_seeds = 1
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
@@ -767,7 +809,7 @@ def main():
             for p in train_dev_partitions:
                 train_dev_partition.extend(p)
 
-            fo_dir = '/data/rosa/hans-forked/auto/generated_data/seed%d/partition%d/' % (seed_index, partition_index) 
+            fo_dir = '/data/rosa/hans-forked/auto/%s/seed%d/partition%d/' % (local_out_dir_name, seed_index, partition_index) 
             fo_train = '%strain_160.csv' % fo_dir
             fo_dev = '%sdev_32.csv' % fo_dir
             fo_test_ivit = '%stest_ivit_300.csv' % fo_dir
@@ -847,12 +889,14 @@ def main():
                 output_rows = []
                 for k,v in output_rows_train_by_template.items():
                     output_rows.extend(v[:train_size])
+                output_rows = filter_by_template_partition(train_dev_partition, output_rows)
                 write_csv(fo_train, output_rows, output_header)
             for dev_size in dev_sample_sizes:
                 fo_dev = '%sdev_%d.csv' % (fo_dir, dev_size)
                 output_rows = []
                 for k,v in output_rows_dev_by_template.items():
                     output_rows.extend(v[:dev_size])
+                output_rows = filter_by_template_partition(train_dev_partition, output_rows)
                 write_csv(fo_dev, output_rows, output_header)
 
             # OOD
