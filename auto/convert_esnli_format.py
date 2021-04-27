@@ -12,13 +12,14 @@ esnli_format_header = ["pairID", "gold_label", "Sentence1", "Sentence2", "Explan
                         "Sentence2_marked_3", "Sentence1_Highlighted_3", "Sentence2_Highlighted_3"]
                         
 def main():
+    data_dir_name = 'generated_data_new_setting'
     num_seeds = 1
     fi_name_list = ['dev_1', 'dev_2', 'dev_4', 'dev_7', 'dev_13', 'dev_32',
              'train_1', 'train_2', 'train_4', 'train_8', 'train_16', 'train_32', 'train_64',
              'test_ivit_300', 'test_ivot_300', 'test_ovit_300', 'test_ovot_300']
     for seed in range(num_seeds):
         for partition in range(5):
-            path = './generated_data/seed%d/partition%d/' % (seed, partition)
+            path = './%s/seed%d/partition%d/' % (data_dir_name, seed, partition)
             for fi in fi_name_list:
                 fi_path = path + fi + '.csv'
                 fo_nl = path + fi + '_nl.csv' # natural language explanation
