@@ -773,7 +773,7 @@ def main():
         print('Error: invalid setting.')
         return
 
-    num_seeds = 1
+    num_seeds = 3
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
@@ -800,6 +800,7 @@ def main():
         partition5 = template_indices[95:118]
 
         partitions = [partition1, partition2, partition3, partition4, partition5]
+        print(partitions)
 
         for partition_index in range(5):
             test_partition = partitions[partition_index]

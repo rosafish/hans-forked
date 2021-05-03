@@ -13,7 +13,7 @@ esnli_format_header = ["pairID", "gold_label", "Sentence1", "Sentence2", "Explan
                         
 def main():
     data_dir_name = 'generated_data_new_setting'
-    num_seeds = 1
+    num_seeds = 3
     fi_name_list = ['dev_1', 'dev_2', 'dev_4', 'dev_7', 'dev_13', 'dev_32',
              'train_1', 'train_2', 'train_4', 'train_8', 'train_16', 'train_32', 'train_64',
              'test_ivit_300', 'test_ivot_300', 'test_ovit_300', 'test_ovot_300']
