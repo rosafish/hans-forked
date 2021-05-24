@@ -5,10 +5,11 @@ import csv
 import random
 import os
 import sys
-sys.path.append('/data/rosa/my_github/misinformation/code/')
+#sys.path.append('/data/rosa/my_github/misinformation/code/')
+sys.path.append('/home/zhouy1/misinformation/code/')
 from myTools import write_csv
 
-setting = -1
+vocab_split_setting = -1
 
 Ns = []
 Np = []
@@ -277,8 +278,8 @@ def ind_ood_split():
     Adj_ind, Adj_ood = split_in_half(Adj_all)
     Adv_ind, Adv_ood = split_in_half(Adv_all)
 
-    global setting
-    if setting == 1:
+    global vocab_split_setting
+    if vocab_split_setting == 1:
         P_ind, P_ood = split_in_half(P_all)
         Rels_ind, Rels_ood = split_in_half(Rels_all)
         Vunderstand_ind, Vunderstand_ood = split_in_half(Vunderstand_all)
@@ -302,7 +303,7 @@ def ind_ood_split():
         Vnonentquote_ind, Vnonentquote_ood = split_in_half(Vnonentquote_all)
         Advnonent_ind, Advnonent_ood = split_in_half(Advnonent_all)
         Advembnent_ind, Advembnent_ood = split_in_half(Advembnent_all)
-    elif setting == 2:
+    elif vocab_split_setting == 2:
         P_ind = P_ood = P_all
         Rels_ind = Rels_ood = Rels_all
         Vunderstand_ind = Vunderstand_ood = Vunderstand_all
@@ -761,19 +762,44 @@ def filter_by_template_partition(template_partition, output_rows):
 
 
 def main():
-    global setting
-    setting = eval(sys.argv[1])
-    # setting = 1 if we split every type of word into ind and ood vocab
-    # setting = 2 if we only split for N, V, Adv and Adj
-    if setting == 1:
+    split_type = eval(sys.argv[1])
+    # global vocab_split_setting = 1 if we split every type of word into ind and ood vocab
+    # global vocab_split_setting = 2 if we only split for N, V, Adv and Adj
+    # global vocab_split_setting = 3 if we split only when there are >= 4 words 
+    global vocab_split_setting
+    if split_type == 1:
+        vocab_split_setting = 1
         local_out_dir_name = 'generated_data'
-    elif setting == 2:
+        print('Data: generated_data (split vocab on all word types ; split templates randomly).')
+    elif split_type == 2:
+        vocab_split_setting = 2
         local_out_dir_name = 'generated_data_new_setting'
+        print('Data: generated_data_new_setting (split vocab only on N,V,Adv,Adj ; split templates randomly).')
+    # TODO: implement other splits
+    # 3: split only when there are >= 4 words (vocab)
+    elif split_type == 3:
+        print('TODO: implement')
+        return
+        vocab_split_setting = 3
+        local_out_dir_name = 'TBD'
+        print('Data: TBD (split only when there are >= 4 words ; split templates randomly).')
+    # 4: split by subcases (templates) TODO: decide vocab split
+    elif split_type == 4:
+        print('TODO: implement')
+        return
+        vocab_split_setting = 2 # TODO: maybe change if vocab_split_setting 3 works better
+        local_out_dir_name = 'random_subcase'
+        print('Data: random_subcase (split only when there are >= 4 words ; split subcase randomly).')
+    # 5: hard split (templates) 
+    elif split_type == 5:
+        vocab_split_setting = 2 # TODO: maybe change if vocab_split_setting 3 works better
+        local_out_dir_name = 'hard_test_templates'
+        print('Data: hard_test_templates (split vocab only on N,V,Adv,Adj ; split chosen templates).')
     else:
         print('Error: invalid setting.')
         return
 
-    num_seeds = 3
+    num_seeds = 5
 
     random.seed(2021)
     seeds = random.sample(range(1, 2021), num_seeds)
@@ -790,7 +816,7 @@ def main():
 
     for seed_index in range(num_seeds): 
         print(seed_index)
-        random.seed(seeds[seed_index]) # setting seed here works for functions imported from templates too
+        random.seed(seeds[seed_index]) # setting the seed here works for functions imported from templates too
         random.shuffle(template_indices)
 
         partition1 = template_indices[0:24]
@@ -810,7 +836,7 @@ def main():
             for p in train_dev_partitions:
                 train_dev_partition.extend(p)
 
-            fo_dir = '/data/rosa/hans-forked/auto/%s/seed%d/partition%d/' % (local_out_dir_name, seed_index, partition_index) 
+            fo_dir = '../../hans-forked/auto/%s/seed%d/partition%d/' % (local_out_dir_name, seed_index, partition_index) 
             fo_train = '%strain_160.csv' % fo_dir
             fo_dev = '%sdev_32.csv' % fo_dir
             fo_test_ivit = '%stest_ivit_300.csv' % fo_dir
