@@ -13,7 +13,7 @@ esnli_format_header = ["pairID", "gold_label", "Sentence1", "Sentence2", "Explan
                         "Sentence2_marked_3", "Sentence1_Highlighted_3", "Sentence2_Highlighted_3"]
                         
 def main():
-    data_dir_name = 'generated_data'  #'generated_data_new_setting'
+    data_dir_name = 'hard_test_templates'  
     num_seeds = 5
     fi_name_list = ['dev_1', 'dev_2', 'dev_4', 'dev_7', 'dev_13', 'dev_32',
              'train_1', 'train_2', 'train_4', 'train_8', 'train_16', 'train_32', 'train_64',
