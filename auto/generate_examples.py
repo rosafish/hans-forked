@@ -1022,7 +1022,7 @@ def main():
 
     if split_type == 1 or split_type == 2 or split_type == 3: # split T by random templates
         # introduce randomness
-        num_seeds = 5
+        num_seeds = 3
         random.seed(2021)
         seeds = random.sample(range(1, 2021), num_seeds)
         print(seeds)
