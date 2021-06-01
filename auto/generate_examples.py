@@ -193,10 +193,13 @@ Advnonent_all = ["supposedly", "probably", "maybe", "hopefully"]
 Advembnent_all = ["if","unless"]
 
 
-def split_in_half(alist):
-    random.shuffle(alist)
-    desired_length = int(len(alist)/2)
-    return alist[:desired_length], alist[desired_length:]
+def split_in_half(alist, by_abundance=False):
+    if by_abundance == True and len(alist) < 4:
+        return alist, alist
+    else:
+        random.shuffle(alist)
+        desired_length = int(len(alist)/2)
+        return alist[:desired_length], alist[desired_length:]
 
 
 def ind_ood_split():
@@ -327,6 +330,31 @@ def ind_ood_split():
         Vnonentquote_ind = Vnonentquote_ood = Vnonentquote_all
         Advnonent_ind = Advnonent_ood = Advnonent_all
         Advembnent_ind = Advembnent_ood = Advembnent_all
+    elif vocab_split_setting == 3:
+        P_ind, P_ood = split_in_half(P_all, by_abundance = True)
+        Rels_ind, Rels_ood = split_in_half(Rels_all, by_abundance = True)
+        Vunderstand_ind, Vunderstand_ood = split_in_half(Vunderstand_all, by_abundance = True)
+        called_objects_ind, called_objects_ood = split_in_half(called_objects_all, by_abundance = True)
+        told_objects_ind, told_objects_ood = split_in_half(told_objects_all, by_abundance = True)
+        food_words_ind, food_words_ood = split_in_half(food_words_all, by_abundance = True)
+        location_nouns_ind, location_nouns_ood = split_in_half(location_nouns_all, by_abundance = True)
+        location_nouns_b_ind, location_nouns_b_ood = split_in_half(location_nouns_b_all, by_abundance = True)
+        won_objects_ind, won_objects_ood = split_in_half(won_objects_all, by_abundance = True)
+        read_wrote_objects_ind, read_wrote_objects_ood = split_in_half(read_wrote_objects_all, by_abundance = True)
+        Vpp_ind, Vpp_ood = split_in_half(Vpp_all, by_abundance = True)
+        Nlocation_ind, Nlocation_ood = split_in_half(Nlocation_all, by_abundance = True)
+        Conj_ind, Conj_ood = split_in_half(Conj_all, by_abundance = True)
+        Vnpz_ind, Vnpz_ood = split_in_half(Vnpz_all, by_abundance = True)
+        Vnps_ind, Vnps_ood = split_in_half(Vnps_all, by_abundance = True)
+        Vconstquotentailed_ind, Vconstquotentailed_ood = split_in_half(Vconstquotentailed_all, by_abundance = True)
+        Advoutent_ind, Advoutent_ood = split_in_half(Advoutent_all, by_abundance = True)
+        Advent_ind, Advent_ood = split_in_half(Advent_all, by_abundance = True)
+        Advembent_ind, Advembent_ood = split_in_half(Advembent_all, by_abundance = True)
+        Advoutnent_ind, Advoutnent_ood = split_in_half(Advoutnent_all, by_abundance = True)
+        Vnonentquote_ind, Vnonentquote_ood = split_in_half(Vnonentquote_all, by_abundance = True)
+        Advnonent_ind, Advnonent_ood = split_in_half(Advnonent_all, by_abundance = True)
+        Advembnent_ind, Advembnent_ood = split_in_half(Advembnent_all, by_abundance = True)
+
 
     
 def set_vocab_by_type(data_type):
@@ -905,32 +933,40 @@ def main():
     # global vocab_split_setting = 2 if we only split for N, V, Adv and Adj
     # global vocab_split_setting = 3 if we split only when there are >= 4 words 
     global vocab_split_setting
+    # 1: V - split all; T - by templates
     if split_type == 1:
         vocab_split_setting = 1
-        local_out_dir_name = 'generated_data'
+        local_out_dir_name = 'split_all_words_templates' 
         print('Data: generated_data (split vocab on all word types ; split templates randomly).')
-    elif split_type == 2:
-        vocab_split_setting = 2
-        local_out_dir_name = 'generated_data_new_setting'
-        print('Data: generated_data_new_setting (split vocab only on N,V,Adv,Adj ; split templates randomly).')
-    # TODO: implement other splits
-    # 3: split only when there are >= 4 words (vocab)
+
+    # # 2: V - on certain type; T - by templates
+    # elif split_type == 2:
+    #     vocab_split_setting = 2
+    #     local_out_dir_name = 'generated_data_new_setting'
+    #     print('Data: generated_data_new_setting (split vocab only on N,V,Adv,Adj ; split templates randomly).')
+
+    # 3: V - on >= 4; T - by templates
     elif split_type == 3:
-        print('TODO: implement')
-        return
-        vocab_split_setting = 3
-        local_out_dir_name = 'TBD'
+        vocab_split_setting = 3 
+        local_out_dir_name = 'split_abundant_words_templates'
         print('Data: TBD (split only when there are >= 4 words ; split templates randomly).')
-    # 4: split by subcases (templates) TODO: decide vocab split
+    # 4: V - split all; T - by subcases
     elif split_type == 4:
         print('TODO: implement')
         return
-        vocab_split_setting = 2 # TODO: maybe change if vocab_split_setting 3 works better
-        local_out_dir_name = 'random_subcase'
-        print('Data: random_subcase (split only when there are >= 4 words ; split subcase randomly).')
-    # 5: hard split (templates) 
+        vocab_split_setting = 1 
+        local_out_dir_name = 'split_all_words_subcases'
+        print('Data: random_subcase (split vocab on all word types ; split subcase randomly).') 
+    # 5: V - on >= 4; T - by subcases
     elif split_type == 5:
-        vocab_split_setting = 2 # TODO: maybe change if vocab_split_setting 3 works better
+        print('TODO: implement')
+        return
+        vocab_split_setting = 3 
+        local_out_dir_name = 'split_abundant_words_subcases'
+        print('Data: random_subcase (split only when there are >= 4 words ; split subcase randomly).')
+    # 6: V - on certain type; T - hard split 
+    elif split_type == 6:
+        vocab_split_setting = 2 # maybe change if vocab_split_setting 3 works better
         local_out_dir_name = 'hard_test_templates'
         print('Data: hard_test_templates (split vocab only on N,V,Adv,Adj ; split chosen templates).')
     else:
@@ -946,7 +982,7 @@ def main():
                      "example_premise", "example_hypotheis", "example_high_quality", \
                      "example_extreme_low_quality"]
 
-    if split_type == 1 or split_type == 2 or split_type == 3:
+    if split_type == 1 or split_type == 2 or split_type == 3: # split T by random templates
         # introduce randomness
         num_seeds = 5
         random.seed(2021)
@@ -974,10 +1010,19 @@ def main():
                 fo_dir = '../../hans-forked/auto/%s/seed%d/partition%d/' % (local_out_dir_name, seed_index, partition_index) 
                 
                 generate_data(fo_dir, templates, train_dev_partition, test_partition, output_header)
-    elif split_type == 4:
-        print('TODO: implement')
-        return
-    elif split_type == 5:
+    elif split_type == 4 or split_type == 5: # split T by random subcases
+        # introduce randomness
+        num_seeds = 5
+        random.seed(2021)
+        seeds = random.sample(range(1, 2021), num_seeds)
+        print(seeds)
+
+        for seed_index in range(num_seeds): 
+            print(seed_index)
+            random.seed(seeds[seed_index]) # setting the seed here works for functions imported from templates too
+            print('TODO: implement')
+            return
+    elif split_type == 6:
         test_partition = [37, 38, 6, 7, 30, 31, 96, 97, 98, 99, 100, 101, 102, 103, 51, 52, 53, 1, 2, 3, 8, 9, 10, 11]
         train_dev_partition = [p for p in template_indices if p not in test_partition]
         print('test_partition: ', len(test_partition))
