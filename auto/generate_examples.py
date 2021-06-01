@@ -966,7 +966,8 @@ def get_templates_by_subcases(subcase_partition, subcase_templates):
     template_partition = []
     for subcase in subcase_partition:
         template_partition.extend(subcase_templates[subcase])
-    return template_partition
+    template_partition_int = [int(item) for item in template_partition]
+    return template_partition_int
 
 
 def main():
