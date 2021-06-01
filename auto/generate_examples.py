@@ -927,6 +927,48 @@ def generate_data(fo_dir, templates, train_dev_partition, test_partition, output
     get_ood_data(templates, train_dev_partition, test_partition, fo_test_ovit, fo_test_ovot, output_header)
 
 
+def get_subcase_templates(templates):
+    # subcases_by_heuristic_label: a list of 6 sublists of subcases names, each of the sublist 
+    # correspond to a heuristic with a label
+    # subcase_templates: <key, value> = <subcase name, list of template ids>
+    heuristic_labels = set()
+    for t in templates:
+        heuristic = t.heuristic
+        label = t.label
+        heuristic_label = heuristic+label
+        heuristic_labels.add(heuristic_label)
+    subcases_by_heuristic_label = [-1]*len(heuristic_labels)
+    heuristic_labels = list(heuristic_labels)
+    for t in templates:
+        heuristic = t.heuristic
+        label = t.label
+        heuristic_label = heuristic+label
+        idx = heuristic_labels.index(heuristic_label)
+        if subcases_by_heuristic_label[idx] == -1:
+            subcases_by_heuristic_label[idx] = [t.template]
+        else:
+            subcases_by_heuristic_label[idx].append(t.template)
+    num_subcases_by_heuristic_label = [len(sublist) for sublist in subcases_by_heuristic_label]
+    # print(subcases_by_heuristic_label)
+    # print(num_subcases_by_heuristic_label)
+    subcase_templates = {}
+    for t in templates:
+        if t.template in subcase_templates:
+            subcase_templates[t.template].append(t.id)
+        else:
+            subcase_templates[t.template] = [t.id]
+    # print(subcase_templates)
+    # print(len(subcase_templates.keys()))
+    return subcases_by_heuristic_label, subcase_templates
+
+
+def get_templates_by_subcases(subcase_partition, subcase_templates):
+    template_partition = []
+    for subcase in subcase_partition:
+        template_partition.extend(subcase_templates[subcase])
+    return template_partition
+
+
 def main():
     split_type = eval(sys.argv[1])
     # global vocab_split_setting = 1 if we split every type of word into ind and ood vocab
@@ -937,7 +979,7 @@ def main():
     if split_type == 1:
         vocab_split_setting = 1
         local_out_dir_name = 'split_all_words_templates' 
-        print('Data: generated_data (split vocab on all word types ; split templates randomly).')
+        print('Data: split_all_words_templates (split vocab on all word types ; split templates randomly).')
 
     # # 2: V - on certain type; T - by templates
     # elif split_type == 2:
@@ -949,21 +991,17 @@ def main():
     elif split_type == 3:
         vocab_split_setting = 3 
         local_out_dir_name = 'split_abundant_words_templates'
-        print('Data: TBD (split only when there are >= 4 words ; split templates randomly).')
+        print('Data: split_abundant_words_templates (split only when there are >= 4 words ; split templates randomly).')
     # 4: V - split all; T - by subcases
     elif split_type == 4:
-        print('TODO: implement')
-        return
         vocab_split_setting = 1 
         local_out_dir_name = 'split_all_words_subcases'
-        print('Data: random_subcase (split vocab on all word types ; split subcase randomly).') 
+        print('Data: split_all_words_subcases (split vocab on all word types ; split subcase randomly).') 
     # 5: V - on >= 4; T - by subcases
     elif split_type == 5:
-        print('TODO: implement')
-        return
         vocab_split_setting = 3 
         local_out_dir_name = 'split_abundant_words_subcases'
-        print('Data: random_subcase (split only when there are >= 4 words ; split subcase randomly).')
+        print('Data: split_abundant_words_subcases (split only when there are >= 4 words ; split subcase randomly).')
     # 6: V - on certain type; T - hard split 
     elif split_type == 6:
         vocab_split_setting = 2 # maybe change if vocab_split_setting 3 works better
@@ -1012,7 +1050,7 @@ def main():
                 generate_data(fo_dir, templates, train_dev_partition, test_partition, output_header)
     elif split_type == 4 or split_type == 5: # split T by random subcases
         # introduce randomness
-        num_seeds = 5
+        num_seeds = 3
         random.seed(2021)
         seeds = random.sample(range(1, 2021), num_seeds)
         print(seeds)
@@ -1020,8 +1058,43 @@ def main():
         for seed_index in range(num_seeds): 
             print(seed_index)
             random.seed(seeds[seed_index]) # setting the seed here works for functions imported from templates too
-            print('TODO: implement')
-            return
+            
+            # subcases_by_heuristic_label: a list of 6 sublists of subcases names, each of the sublist 
+            # correspond to a heuristic with a label
+            # subcase_templates: <key, value> = <subcase name, list of template ids>
+            subcases_by_heuristic_label, subcase_templates = get_subcase_templates(templates)
+            assert len(subcases_by_heuristic_label)==6
+
+            # test subcases (each partition): randomly sample 1 per heuristic per label
+            for sublist in subcases_by_heuristic_label:
+                random.shuffle(sublist)
+
+            # subcase names partitions
+            subcase_partition1 = [subcases_by_heuristic_label[i][0] for i in range(len(subcases_by_heuristic_label))]
+            subcase_partition2 = [subcases_by_heuristic_label[i][1] for i in range(len(subcases_by_heuristic_label))]
+            subcase_partition3 = [subcases_by_heuristic_label[i][2] for i in range(len(subcases_by_heuristic_label))]
+            subcase_partition4 = [subcases_by_heuristic_label[i][3] for i in range(len(subcases_by_heuristic_label))]
+            subcase_partition5 = [subcases_by_heuristic_label[i][4] for i in range(len(subcases_by_heuristic_label))]
+
+            # templates partitions
+            partition1 = get_templates_by_subcases(subcase_partition1, subcase_templates)
+            partition2 = get_templates_by_subcases(subcase_partition2, subcase_templates)
+            partition3 = get_templates_by_subcases(subcase_partition3, subcase_templates)
+            partition4 = get_templates_by_subcases(subcase_partition4, subcase_templates)
+            partition5 = get_templates_by_subcases(subcase_partition5, subcase_templates)
+
+            partitions = [partition1, partition2, partition3, partition4, partition5]
+            print(partitions)
+
+            for partition_index in range(5):
+                train_dev_partition, test_partition = get_train_dev_test_partitions(partitions, partition_index)
+
+                # output file names
+                fo_dir = '../../hans-forked/auto/%s/seed%d/partition%d/' % (local_out_dir_name, seed_index, partition_index) 
+                
+                generate_data(fo_dir, templates, train_dev_partition, test_partition, output_header)
+
+
     elif split_type == 6:
         test_partition = [37, 38, 6, 7, 30, 31, 96, 97, 98, 99, 100, 101, 102, 103, 51, 52, 53, 1, 2, 3, 8, 9, 10, 11]
         train_dev_partition = [p for p in template_indices if p not in test_partition]
