@@ -198,7 +198,7 @@ def split_in_half(alist, by_abundance=False):
         return alist, alist
     else:
         random.shuffle(alist)
-        desired_length = int(len(alist)/2)
+        desired_length = math.floor(len(alist)/2)
         return alist[:desired_length], alist[desired_length:]
 
 
