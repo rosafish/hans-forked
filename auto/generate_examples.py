@@ -5,6 +5,7 @@ import csv
 import random
 import os
 import sys
+import math
 #sys.path.append('/data/rosa/my_github/misinformation/code/')
 sys.path.append('/home/zhouy1/misinformation/code/')
 from myTools import write_csv
@@ -928,38 +929,16 @@ def generate_data(fo_dir, templates, train_dev_partition, test_partition, output
 
 
 def get_subcase_templates(templates):
-    # subcases_by_heuristic_label: a list of 6 sublists of subcases names, each of the sublist 
-    # correspond to a heuristic with a label
     # subcase_templates: <key, value> = <subcase name, list of template ids>
-    heuristic_labels = set()
-    for t in templates:
-        heuristic = t.heuristic
-        label = t.label
-        heuristic_label = heuristic+label
-        heuristic_labels.add(heuristic_label)
-    subcases_by_heuristic_label = [-1]*len(heuristic_labels)
-    heuristic_labels = list(heuristic_labels)
-    for t in templates:
-        heuristic = t.heuristic
-        label = t.label
-        heuristic_label = heuristic+label
-        idx = heuristic_labels.index(heuristic_label)
-        if subcases_by_heuristic_label[idx] == -1:
-            subcases_by_heuristic_label[idx] = [t.template]
-        else:
-            subcases_by_heuristic_label[idx].append(t.template)
-    num_subcases_by_heuristic_label = [len(sublist) for sublist in subcases_by_heuristic_label]
-    # print(subcases_by_heuristic_label)
-    # print(num_subcases_by_heuristic_label)
     subcase_templates = {}
     for t in templates:
         if t.template in subcase_templates:
             subcase_templates[t.template].append(t.id)
         else:
             subcase_templates[t.template] = [t.id]
-    # print(subcase_templates)
-    # print(len(subcase_templates.keys()))
-    return subcases_by_heuristic_label, subcase_templates
+    print(subcase_templates)
+    print(len(subcase_templates.keys()))
+    return subcase_templates
 
 
 def get_templates_by_subcases(subcase_partition, subcase_templates):
@@ -1023,7 +1002,7 @@ def main():
 
     if split_type == 1 or split_type == 2 or split_type == 3: # split T by random templates
         # introduce randomness
-        num_seeds = 3
+        num_seeds = 1
         random.seed(2021)
         seeds = random.sample(range(1, 2021), num_seeds)
         print(seeds)
@@ -1051,7 +1030,7 @@ def main():
                 generate_data(fo_dir, templates, train_dev_partition, test_partition, output_header)
     elif split_type == 4 or split_type == 5: # split T by random subcases
         # introduce randomness
-        num_seeds = 3
+        num_seeds = 1
         random.seed(2021)
         seeds = random.sample(range(1, 2021), num_seeds)
         print(seeds)
@@ -1060,22 +1039,21 @@ def main():
             print(seed_index)
             random.seed(seeds[seed_index]) # setting the seed here works for functions imported from templates too
             
-            # subcases_by_heuristic_label: a list of 6 sublists of subcases names, each of the sublist 
-            # correspond to a heuristic with a label
             # subcase_templates: <key, value> = <subcase name, list of template ids>
-            subcases_by_heuristic_label, subcase_templates = get_subcase_templates(templates)
-            assert len(subcases_by_heuristic_label)==6
-
+            subcase_templates = get_subcase_templates(templates)
+            assert len(subcase_templates)==30
+            
             # test subcases (each partition): randomly sample 1 per heuristic per label
-            for sublist in subcases_by_heuristic_label:
-                random.shuffle(sublist)
+            subcase_names = list(subcase_templates.keys())
+            assert len(subcase_names)==30
+            random.shuffle(subcase_names)
 
             # subcase names partitions
-            subcase_partition1 = [subcases_by_heuristic_label[i][0] for i in range(len(subcases_by_heuristic_label))]
-            subcase_partition2 = [subcases_by_heuristic_label[i][1] for i in range(len(subcases_by_heuristic_label))]
-            subcase_partition3 = [subcases_by_heuristic_label[i][2] for i in range(len(subcases_by_heuristic_label))]
-            subcase_partition4 = [subcases_by_heuristic_label[i][3] for i in range(len(subcases_by_heuristic_label))]
-            subcase_partition5 = [subcases_by_heuristic_label[i][4] for i in range(len(subcases_by_heuristic_label))]
+            subcase_partition1 = subcase_names[0:6]
+            subcase_partition2 = subcase_names[6:12]
+            subcase_partition3 = subcase_names[12:18]
+            subcase_partition4 = subcase_names[18:24]
+            subcase_partition5 = subcase_names[24:30]
 
             # templates partitions
             partition1 = get_templates_by_subcases(subcase_partition1, subcase_templates)
